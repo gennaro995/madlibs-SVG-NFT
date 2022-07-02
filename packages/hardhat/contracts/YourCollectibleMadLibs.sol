@@ -23,15 +23,14 @@ contract YourCollectible is ERC721Enumerable, Ownable {
   struct MadLib{
     bytes1 typeOfWord;
     bool guessed; //flag to guess
-    uint8 index;
   }
   //we use indexToGuess to show which word of the text is not yet guessed
   struct Session {
     string text;
     uint8 indexToGuess;
     uint8 nMadLibs;
-    MadLib[] madLibs; 
     uint8 playerCounter;
+    mapping(uint => MadLib) madLibs; 
     mapping(address => MadLib) players;
   }
 
@@ -89,9 +88,9 @@ contract YourCollectible is ERC721Enumerable, Ownable {
             }
         if (flag) {
            found = true;
-           session.madLibs.push(MadLib({
-             typeOfWord: whereBytes[i+1],guessed: false, index: session.nMadLibs
-             }));
+           session.madLibs[session.nMadLibs] = MadLib({
+             typeOfWord: whereBytes[i+1],guessed: false
+             });
 
            session.nMadLibs++;
         }
