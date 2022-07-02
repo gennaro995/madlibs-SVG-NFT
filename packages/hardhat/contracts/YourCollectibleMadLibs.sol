@@ -24,7 +24,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     bytes1 typeOfWord;
     bool guessed; //flag to guess
   }
-  //we use indexToGuess to show which word of the text is not yet guessed
+  //we use indexToGuess to show which word of the text is assignet to the player, other players should not see other guesses
   struct Session {
     string text;
     uint8 indexToGuess;
@@ -64,6 +64,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
   }
 
   //payable?
+  // to each player is assigned one word
   function newPlayer(uint sessionIndex) public { 
     require (sessionIndex <= sessions.length -1);
     Session storage session = sessions[sessionIndex];
@@ -74,6 +75,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     session.playerCounter++;
   }
 
+  // find #x where x is the first letter of a type of word (a->adjective, v -> verb, n-> noun ecc) those will be the mad lips
   function processText (string memory where, Session storage session) private {
     bytes memory whatBytes = bytes ("#");
     bytes memory whereBytes = bytes (where);
