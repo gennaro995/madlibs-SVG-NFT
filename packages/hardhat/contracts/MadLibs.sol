@@ -67,26 +67,26 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     uint256 id = _tokenIds.current();
     _mint(msg.sender, id);
     //processText(_text, sessions[0]);
-    MadLib memory item2mint;
+    MadLib storage item2mint;
     item2mint.id = id;
     item2mint.text = _text;
     item2mint.nwords = _nwords;
     item2mint.closed = false;
-    madlibs.push(item2mint);
+    //madlibs.push(item2mint); //TODO
     return id;
   }
 
-  function getMadLib(uint _id) public view returns(MadLib memory) { 
+  /*function getMadLib(uint _id) public view returns(MadLib memory) {  //TODO
     return madlibs[_id]; 
-  }
+  }*/
 
    function getProposal(uint _id, address _addr) public view returns(Proposal memory){
     return madlibs[_id].proposals[_addr]; 
   }
 
-  function getProposals(uint _id, address _addr) public view returns(mapping(address => Proposal) memory){
+  /*function getProposals(uint _id, address _addr) public view returns(mapping(address => Proposal) memory){ //TODO
     return madlibs[_id].proposals; 
-  }
+  }*/
 
   function addProposal(uint _id, string memory _words) public { 
     require (madlibs[_id].proposals[msg.sender].isProposal == false, "Player already has a proposal for this MadLib!");
@@ -118,7 +118,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
             }
         if (flag) {
            found = true;
-           session.madLibs[session.nMadLibs] = MadLib({
+          session.madLibs[session.nMadLibs] = MadLib({
              typeOfWord: whereBytes[i+1],guessed: false
              });
 
