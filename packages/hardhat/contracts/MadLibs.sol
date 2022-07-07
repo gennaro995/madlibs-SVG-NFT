@@ -121,7 +121,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
                               '", "external_url":"https://burnyboys.com/token/',
                               _id.toString(),
                               '", "owner":"',
-                              (uint160(ownerOf(_id))).toHexString(20),
+                              //(uint160(ownerOf(_id))).toHexString(20),
                               '", "image": "',
                               'data:image/svg+xml;base64,',
                               image,
