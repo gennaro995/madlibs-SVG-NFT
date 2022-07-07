@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import 'base64-sol/base64.sol';
+import './HexStrings.sol';
 
 contract YourCollectible is ERC721Enumerable, Ownable {
 
@@ -15,6 +16,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
   uint8 public _maxVotes = 3;
   MadLib[] public _madlibs;
   using Strings for uint256;
+  using HexStrings for uint160;
 
   /**
   * @dev
@@ -27,10 +29,9 @@ contract YourCollectible is ERC721Enumerable, Ownable {
   *   -
   */
   struct Proposal{
-    uint256 id;
     string[] words;
     uint256 countVotes;
-    bool done;
+    address proposer;
   }
  
   /**
@@ -48,63 +49,65 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     uint256 id;
     string text;
     uint8 nBlanks;
-    mapping(address => Proposal) proposals;
+    Proposal[] proposals;
+    mapping(address => bool) addrProposed;
     mapping(address => uint8) addrVotes;
     bool closed;
   }
-
-  
-
 
   constructor() ERC721("MadLibs onChain", "MLC") {
   }
 
   function mintItem(string memory _text, uint8 _nBlanks) public onlyOwner returns (uint256) {
-    _tokenIds.increment();
+    if(_tokenIds.current() > 0)
+        require(_madlibs[_tokenIds.current()-1].closed, "Previous MadLib not closed yet!");
     uint256 id = _tokenIds.current();
     _mint(msg.sender, id);
-    _madlibs[id].id = id;
-    _madlibs[id].text = _text;
-    _madlibs[id].nBlanks = _nBlanks;
-    _madlibs[id].closed = false;
+    MadLib storage item2mint = _madlibs.push();
+    item2mint.id = id;
+    item2mint.text = _text;
+    item2mint.nBlanks = _nBlanks;
+    item2mint.closed = false;
     return id;
   }
 
-  /*function getMadLib(uint _id) public view returns(MadLib memory) {  //TODO
-    return madlibs[_id]; 
-  }*/
-
-   function getProposal(uint _id, address _addr) public view returns(Proposal memory){
-    return _madlibs[_id].proposals[_addr]; 
+  function closeMadLib(uint _id) public onlyOwner{
+    require(_madlibs[_tokenIds.current()].closed == false, "Selected MadLib already closed!");
+    _madlibs[_id].closed = true;
+    _tokenIds.increment();
   }
 
-  /*function getProposals(uint _id, address _addr) public view returns(mapping(address => Proposal) memory){ //TODO
-    return madlibs[_id].proposals; 
-  }*/
+   function getProposal(uint _id, uint _idProposal) public view returns(Proposal memory){
+    return _madlibs[_id].proposals[_idProposal]; 
+  }
 
-  function _addProposal(string[] memory _words) private{ 
+  function getProposals(uint _id) public view returns(Proposal[] memory){
+    return _madlibs[_id].proposals; 
+  }
+
+  function addProposal(string[] memory _words) public{ 
     uint256 id = _tokenIds.current();
-    require (_madlibs[id].proposals[msg.sender].done == false, "Player already has a proposal for this MadLib!");
-    _madlibs[id].proposals[msg.sender].done = true;
-    _proposalIds.increment();
-    _madlibs[id].proposals[msg.sender].id =  _proposalIds.current();
-    //uint256 nBlanks =  _madlibs[id].nBlanks;
+    require (_madlibs[id].addrProposed[msg.sender] == false, "Player already has a proposal for this MadLib!");
+    require (_words.length == _madlibs[id].nBlanks, "not right number of words!");
+    _madlibs[id].addrProposed[msg.sender] = true;
 
-    //for (uint i = 0; i < nBlanks; i++) {
-      _madlibs[id].proposals[msg.sender].words = _words;
-    //}
+    Proposal storage currentProposal = _madlibs[id].proposals.push();
+    currentProposal.proposer = msg.sender;
+    currentProposal.words = _words;
   }
 
-  function voteProposal(address _idProposal) public{
+  function voteProposal(uint _idProposal) public{
     uint256 id = _tokenIds.current();
     require (_madlibs[id].closed == false, "Proposal must be for open/current MadLib!");
+    require (_madlibs[id].addrVotes[msg.sender] < _maxVotes , "Proposal must be for open/current MadLib!");
+    _madlibs[id].addrVotes[msg.sender]++;
     _madlibs[id].proposals[_idProposal].countVotes++;
   }
 
   function tokenURI(uint256 _id) public view override returns (string memory) {
-      require(_exists(_id), "not exist");
-      string memory title = string(abi.encodePacked('MadLibs #'));
-      string memory description = string(abi.encodePacked('This MabLibd Game onChain'));
+      require(_exists(_id), "Not exist!");
+      string memory name = string(abi.encodePacked('MadLib #',_id.toString()));
+      string memory description = string(abi.encodePacked('This is MabLibs Game onChain'));
       string memory image = Base64.encode(bytes(generateSVGofTokenById(_id)));
 
       return
@@ -115,13 +118,13 @@ contract YourCollectible is ERC721Enumerable, Ownable {
                     bytes(
                           abi.encodePacked(
                               '{"name":"',
-                              title,
+                              name,
                               '", "description":"',
                               description,
                               '", "external_url":"https://burnyboys.com/token/',
                               _id.toString(),
                               '", "owner":"',
-                              //(uint160(ownerOf(_id))).toHexString(20),
+                              (uint160(ownerOf(_id))).toHexString(20),
                               '", "image": "',
                               'data:image/svg+xml;base64,',
                               image,
@@ -145,40 +148,14 @@ contract YourCollectible is ERC721Enumerable, Ownable {
   }
 
   function renderTokenById(uint256 _id) public view returns (string memory) {
-      return string(abi.encodePacked(
-        '<rect width="99%" height="99%" fill="white" />',
-        '<text x="15" y="30" style="fill:black;"> PIPPO' ,
-          '<tspan x="15" y="85">LICENSE PLATE: </tspan> PLUTO',
-        '</text>'
-      ));
-    
+
+    return string(abi.encodePacked(
+      '<rect width="99%" height="99%" fill="white" />',
+      //'<text x="0" y="15" fill="white">I love SVG! Targa:', targa[id] ,'</text>'
+      '<text x="15" y="30" style="fill:black;"> ' ,_madlibs[_id].text,' ',
+        '<tspan x="15" y="85">LICENSE PLATE: </tspan> XXXX',
+      '</text>'
+    ));
   }
-
-  // find #x where x is the first letter of a type of word (a->adjective, v -> verb, n-> noun ecc) those will be the mad lips
-  /*function processText (string memory _at, MadLib storage session) private {
-    bytes memory whatBytes = bytes ("#");
-    bytes memory whereBytes = bytes (_at);
-
-    bool found = false;
-    for (uint i = 0; i <= whereBytes.length - whatBytes.length; i++) {
-        bool flag = true;
-        for (uint j = 0; j < whatBytes.length; j++)
-            if (whereBytes [i + j] != whatBytes [j]) {
-                flag = false;
-                break;
-            }
-        if (flag) {
-           found = true;
-          session.madLibs[session.nMadLibs] = MadLib({
-             typeOfWord: whereBytes[i+1],guessed: false
-             });
-
-           session.nMadLibs++;
-        }
-    }
-    require (found);
-
-  }*/
-
 
 }
