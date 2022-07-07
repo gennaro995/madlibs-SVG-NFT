@@ -35,7 +35,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
   /**
   * @dev MadLibs -> NFT
   * Note: 
-  *   - L'ho messo come esempio di come si dovrebbe commentare il codice in solidity
+  *   - 
   *   -
   * Requirements:
   *   -
@@ -49,6 +49,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     uint8 nwords;
     mapping(address => Proposal) proposals;
     mapping(address => uint8) nvote;
+    address[] proposers;
     bool closed;
   }
 
@@ -83,9 +84,16 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     return madlibs[_id].proposals[_addr]; 
   }
 
-  /*function getProposals(uint _id, address _addr) public view returns(mapping(address => Proposal) memory){ //TODO
-    return madlibs[_id].proposals; 
-  }*/
+  function getProposals(uint _id) public view returns(Proposal[] memory){ 
+    uint n = madlibs[_id].proposers.length;
+    Proposal[] memory proposals = new Proposal[](n);
+
+    for(uint i= 0; i<n; i++){
+      proposals[i]=(madlibs[_id].proposals[madlibs[_id].proposers[i]]);
+    }
+    
+    return proposals; 
+  }
 
   function addProposal(uint _id, string[] memory _words) public { 
     require (madlibs[_id].proposals[msg.sender].isProposal == false, "Player already has a proposal for this MadLib!");
@@ -94,11 +102,13 @@ contract YourCollectible is ERC721Enumerable, Ownable {
 
     Proposal storage proposal = madlibs[_id].proposals[msg.sender];
     proposal.isProposal = true;
-    proposal.id = _tokenIds.current();
+    proposal.id = _tokenIds.current(); //TODO sembra sempre 1
 
     for (uint i = 0; i < n; i++) {
       proposal.words.push(_words[i]);
     }
+    madlibs[_id].proposers.push(msg.sender);
+
 
   }
 
