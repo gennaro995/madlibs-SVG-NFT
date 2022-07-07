@@ -66,13 +66,12 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     _proposalIds.increment();
     uint256 id = _tokenIds.current();
     _mint(msg.sender, id);
-    //processText(_text, sessions[0]);
-    MadLib storage item2mint;
+
+    MadLib storage item2mint = madlibs.push();
     item2mint.id = id;
     item2mint.text = _text;
     item2mint.nwords = _nwords;
     item2mint.closed = false;
-    //madlibs.push(item2mint); //TODO
     return id;
   }
 
@@ -88,22 +87,24 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     return madlibs[_id].proposals; 
   }*/
 
-  function addProposal(uint _id, string memory _words) public { 
+  function addProposal(uint _id, string[] memory _words) public { 
     require (madlibs[_id].proposals[msg.sender].isProposal == false, "Player already has a proposal for this MadLib!");
-    Proposal memory proposal;
+    uint8 n = madlibs[_id].nwords;
+    require (_words.length == n,"not right number of words!");
+
+    Proposal storage proposal = madlibs[_id].proposals[msg.sender];
     proposal.isProposal = true;
     proposal.id = _tokenIds.current();
-    uint8 n = madlibs[_id].nwords;
 
     for (uint i = 0; i < n; i++) {
-      proposal.words[i] = _words; // TODO si deve capire come far arrivale le parole
+      proposal.words.push(_words[i]);
     }
-
-    madlibs[_id].proposals[msg.sender] = proposal;
 
   }
 
-  // find #x where x is the first letter of a type of word (a->adjective, v -> verb, n-> noun ecc) those will be the mad lips
+  /* inutile perchè se non ci serve il tipo di parola basta un carattere che ci identifica la madlib
+  
+  find #x where x is the first letter of a type of word (a->adjective, v -> verb, n-> noun ecc) those will be the mad lips
   function processText (string memory _at, MadLib storage session) private {
     bytes memory whatBytes = bytes ("#");
     bytes memory whereBytes = bytes (_at);
@@ -126,8 +127,9 @@ contract YourCollectible is ERC721Enumerable, Ownable {
         }
     }
     require (found);
+    
 
-  }
+  }*/
 
 
 }
