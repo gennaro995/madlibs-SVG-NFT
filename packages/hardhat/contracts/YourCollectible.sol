@@ -61,7 +61,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
   constructor() ERC721("MadLibs onChain", "MLC") {
   }
 
-  function mintItem(/*string memory _text, uint8 _nBlanks*/) public onlyOwner returns (uint256) {
+  function mintItem(/*string memory _text, uint8 _nBlanks*/) public payable returns (uint256) {
     if(_tokenIds.current() > 0)
         require(_madlibs[_tokenIds.current()-1].closed, "Previous MadLib not closed yet!");
     uint256 id = _tokenIds.current();
@@ -156,7 +156,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
       '<rect width="99%" height="99%" fill="white" />',
       //'<text x="0" y="15" fill="white">I love SVG! Targa:', targa[id] ,'</text>'
       '<text x="15" y="30" style="fill:black;"> ' ,_madlibs[_id].text,' ',
-        '<tspan x="15" y="85">LICENSE PLATE: </tspan> XXXX',
+        '<tspan x="15" y="85">XXXXX </tspan> XXXX',
       '</text>'
     ));
   }
