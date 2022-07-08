@@ -1,4 +1,5 @@
 {
-  "localhost_YourCollectibleAddress": "0x2B0d36FACD61B71CC05ab8F3D2355ec3631C0dd5",
-  "goerli_YourCollectibleAddress": "0xc4EEf7e6E745D78fA3677D38F583d740BfA1cf06"
+  "localhost_YourCollectibleAddress": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+  "goerli_YourCollectibleAddress": "0xc4EEf7e6E745D78fA3677D38F583d740BfA1cf06",
+  "localhost_MadLibsAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
 }

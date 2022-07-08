@@ -10,79 +10,108 @@ import './HexStrings.sol';
 
 contract YourCollectible is ERC721Enumerable, Ownable {
 
-  using Strings for uint256;
-  using HexStrings for uint160;
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
-
-  // all funds go to buidlguidl.eth
+  Counters.Counter private _proposalIds;
+  uint8 public _maxVotes = 3;
+  MadLib[] public _madlibs;
+  using Strings for uint256;
+  using HexStrings for uint160;
+   // all funds go to buidlguidl.eth
   address payable public constant recipient = payable(0xa81a6a910FeD20374361B35C451a4a44F86CeD46);
   uint256 public price = 0.001 ether;
 
-  mapping (uint256 => string) public license_plate;
-  mapping (uint256 => bool) public filled;
-  mapping (uint256 => uint256) public km;
-  mapping (uint256 => uint256) public car_services_done;
-  mapping (uint256 => mapping (uint256 => uint256)) public km4service; //km done at car service moment -> car km history
-  mapping (uint256 => mapping (uint256 => string)) public note4service; //km done at car service moment -> car km history
-  mapping (uint256 => string) public chassis_number; //cars ID
-  mapping (uint256 => string) public manufacturer;
-  mapping (uint256 => string) public model;
-  mapping (uint256 => string) public production_year;
-  mapping (uint256 => uint256) public past_owners;
-
-  event CarServiceDone(address indexed sender, string message);
-
-  
-
-  constructor() public ERC721("Car Certification onChain", "CCC") {
+  /**
+  * @dev
+  * Note: 
+  *   - words -> parole della proposta
+  * Requirements:
+  *   -
+  *   -
+  * Returns:
+  *   -
+  */
+  struct Proposal{
+    string[] words;
+    uint256 countVotes;
+    address proposer;
+  }
+ 
+  /**
+  * @dev MadLibs -> NFT
+  * Note: 
+  *   - L'ho messo come esempio di come si dovrebbe commentare il codice in solidity
+  *   -
+  * Requirements:
+  *   -
+  *   -
+  * Returns:
+  *   -
+  */
+  struct MadLib{ 
+    uint256 id;
+    string text;
+    uint8 nBlanks;
+    Proposal[] proposals;
+    mapping(address => bool) addrProposed;
+    mapping(address => uint8) addrVotes;
+    bool closed;
   }
 
-  function mintItem() public payable returns (uint256){
-    require(msg.value >= price, "NOT ENOUGH");
-    _tokenIds.increment();
+  constructor() ERC721("MadLibs onChain", "MLC") {
+  }
 
+  function mintItem(/*string memory _text, uint8 _nBlanks*/) public onlyOwner returns (uint256) {
+    if(_tokenIds.current() > 0)
+        require(_madlibs[_tokenIds.current()-1].closed, "Previous MadLib not closed yet!");
     uint256 id = _tokenIds.current();
     _mint(msg.sender, id);
-    filled[id] = false;
-    (bool success, ) = recipient.call{value: msg.value}("");
-    require(success, "could not send");
-
+    MadLib storage item2mint = _madlibs.push();
+    item2mint.id = id;
+    item2mint.text = "le rose sono # pippo is #";//_text;
+    item2mint.nBlanks = 2;//_nBlanks;
+    item2mint.closed = false;
     return id;
   }
 
-  function fillCCC(uint256 _tokenId, string memory _license_plate, string memory _chassis, string memory _manufacturer, string memory _model, string memory _year) public{
-
-    require(ownerOf(_tokenId) == msg.sender, "you aren't the owner");
-
-    license_plate[_tokenId] = _license_plate;
-    km[_tokenId] = 0;
-    car_services_done[_tokenId] = 0;
-    past_owners[_tokenId] = 0;
-    chassis_number[_tokenId] = _chassis;
-    manufacturer[_tokenId] = _manufacturer;
-    model[_tokenId] = _model;
-    production_year[_tokenId] = _year;
-    filled[_tokenId] = true;
+  function closeMadLib(uint _id) public onlyOwner{
+    require(_madlibs[_tokenIds.current()].closed == false, "Selected MadLib already closed!");
+    _madlibs[_id].closed = true;
+    _tokenIds.increment();
   }
 
-  function makeCarService(uint256 _updated_km, uint256 _tokenId, string memory _message4services) public{
-
-    require(ownerOf(_tokenId) == msg.sender, "you aren't the owner");
-    require(_updated_km > km[_tokenId], "km can not be decreased");
-    
-    km[_tokenId] = _updated_km;
-    car_services_done[_tokenId] += 1;
-    km4service[_tokenId][car_services_done[_tokenId]] = _updated_km;
-    note4service[_tokenId][car_services_done[_tokenId]] = _message4services;
-    emit CarServiceDone(msg.sender, "Car Service completed!");
+   function getProposal(uint _id, uint _idProposal) public view returns(Proposal memory){
+    return _madlibs[_id].proposals[_idProposal]; 
   }
 
-  function tokenURI(uint256 id) public view override returns (string memory) {
-      require(_exists(id), "not exist");
-      string memory name = string(abi.encodePacked('CCC #',id.toString()));
-      string memory description = string(abi.encodePacked('This is Car Certification onChain'));
-      string memory image = Base64.encode(bytes(generateSVGofTokenById(id)));
+  function getProposals(uint _id) public view returns(Proposal[] memory){
+    return _madlibs[_id].proposals; 
+  }
+
+  function addProposal(string[] memory _words) public{ 
+    uint256 id = _tokenIds.current();
+    require (_madlibs[id].addrProposed[msg.sender] == false, "Player already has a proposal for this MadLib!");
+    require (_words.length == _madlibs[id].nBlanks, "not right number of words!");
+    _madlibs[id].addrProposed[msg.sender] = true;
+
+    Proposal storage currentProposal = _madlibs[id].proposals.push();
+    currentProposal.proposer = msg.sender;
+    currentProposal.words = _words;
+  }
+
+  function voteProposal(uint _idProposal) public{
+    uint256 id = _tokenIds.current();
+    require (_madlibs[id].closed == false, "Proposal must be for open/current MadLib!");
+    require (_madlibs[id].addrVotes[msg.sender] < _maxVotes , "Proposal must be for open/current MadLib!");
+    _madlibs[id].addrVotes[msg.sender]++;
+    _madlibs[id].proposals[_idProposal].countVotes++;
+  }
+
+  function tokenURI(uint256 _id) public view override returns (string memory) {
+      require(_exists(_id), "Not exist!");
+      string memory name = string(abi.encodePacked('MadLib #',_id.toString()));
+      string memory description = string(abi.encodePacked('This is MabLibs Game onChain'));
+      string memory image = Base64.encode(bytes(generateSVGofTokenById(_id)));
 
       return
           string(
@@ -96,9 +125,9 @@ contract YourCollectible is ERC721Enumerable, Ownable {
                               '", "description":"',
                               description,
                               '", "external_url":"https://burnyboys.com/token/',
-                              id.toString(),
+                              _id.toString(),
                               '", "owner":"',
-                              (uint160(ownerOf(id))).toHexString(20),
+                              (uint160(ownerOf(_id))).toHexString(20),
                               '", "image": "',
                               'data:image/svg+xml;base64,',
                               image,
@@ -110,11 +139,11 @@ contract YourCollectible is ERC721Enumerable, Ownable {
           );
   }
 
-  function generateSVGofTokenById(uint256 id) internal view returns (string memory) {
+  function generateSVGofTokenById(uint256 _id) internal view returns (string memory) {
 
     string memory svg = string(abi.encodePacked(
       '<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">',
-        renderTokenById(id),
+        renderTokenById(_id),
       '</svg>'
     ));
 
@@ -123,69 +152,13 @@ contract YourCollectible is ERC721Enumerable, Ownable {
 
   function renderTokenById(uint256 _id) public view returns (string memory) {
 
-    if(filled[_id] == true){
-      return string(abi.encodePacked(
-
-        '<rect width="100%" height="100%" fill="', badgeColor(past_owners[_id]) ,'" />',
-        '<rect width="99%" height="99%" fill="black" />',
-        //'<text x="0" y="15" fill="white">I love SVG! Targa:', targa[id] ,'</text>'
-        '<text x="15" y="30" style="fill:white;"> ' ,manufacturer[_id], ' ', model[_id], ' ',
-          '<tspan x="15" y="85">LICENSE PLATE: </tspan>', license_plate[_id], 
-          '<tspan x="15" y="110">CHASSIS #: </tspan>', chassis_number[_id],
-          '<tspan x="15" y="135">YEAR: </tspan>', production_year[_id],
-          '<tspan x="15" y="160">KILOMETRES: </tspan>', uint2str(km[_id]),
-          '<tspan x="15" y="185">SERVICES DONE: </tspan>', uint2str(car_services_done[_id]),
-          '<tspan x="15" y="210">PAST OWNERS: </tspan>', uint2str(past_owners[_id]),
-        '</text>'
-      ));
-    }else{
-      return string(abi.encodePacked(
-        '<rect width="100%" height="100%" fill="blue" />',
-        '<rect width="99%" height="99%" fill="white" />',
-        '<text x="15" y="30" style="fill:blue;"> CLEAN CCC IS MINTED!',
-        '<tspan x="15" y="85">PLEASE FILL CCC</tspan>',
-        '<tspan x="15" y="110">UNDER DEBUG CONTRACT TAB</tspan>',
-        '<tspan x="15" y="135">WITH ALL INFO RELATED</tspan>',
-        '</text>'
-      ));
-    }
+    return string(abi.encodePacked(
+      '<rect width="99%" height="99%" fill="white" />',
+      //'<text x="0" y="15" fill="white">I love SVG! Targa:', targa[id] ,'</text>'
+      '<text x="15" y="30" style="fill:black;"> ' ,_madlibs[_id].text,' ',
+        '<tspan x="15" y="85">LICENSE PLATE: </tspan> XXXX',
+      '</text>'
+    ));
   }
 
-  function uint2str(uint _i) internal pure returns (string memory _uintAsString) {
-      if (_i == 0) {
-          return "0";
-      }
-      uint j = _i;
-      uint len;
-      while (j != 0) {
-          len++;
-          j /= 10;
-      }
-      bytes memory bstr = new bytes(len);
-      uint k = len;
-      while (_i != 0) {
-          k = k-1;
-          uint8 temp = (48 + uint8(_i - _i / 10 * 10));
-          bytes1 b1 = bytes1(temp);
-          bstr[k] = b1;
-          _i /= 10;
-      }
-      return string(bstr);
-  }
-
-  function badgeColor(uint _past_owner) internal pure returns (string memory) {
-    if (_past_owner == 0) {
-      return "gold";
-    }else if (_past_owner >= 1 && _past_owner <= 3) {
-      return "silver";
-    }else {
-      return "orange";
-    }
-      
-  }
-
-  function _transfer(address from, address to, uint256 tokenId) internal override(ERC721){
-    past_owners[tokenId] += 1;
-    ERC721._transfer(from, to, tokenId);
-  }
 }
