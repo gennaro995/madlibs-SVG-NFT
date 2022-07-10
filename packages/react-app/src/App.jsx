@@ -324,7 +324,7 @@ function App(props) {
             <br />
             <label>
               Text: <span></span>
-              <input type="text" value={inputText} onInput={e => setInputText(e.target.value)} />
+              <textarea style={{resize: 'none'}} rows="4" cols="50" value={inputText} onInput={e => setInputText(e.target.value)} />
               <br />
               
             </label>
