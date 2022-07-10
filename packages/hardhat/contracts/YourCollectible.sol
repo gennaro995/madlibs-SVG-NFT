@@ -62,7 +62,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
   }
 
   function mintItem(string memory _text, uint8 _nBlanks) public payable returns (uint256) {
-    if(_tokenIds.current()+1 <= _madlibs.length)
+    if(0 != _madlibs.length)
         require(_madlibs[_madlibs.length-1].closed, "Previous MadLib not closed yet!");
     uint256 id = _tokenIds.current();
     _mint(msg.sender, id);
