@@ -61,20 +61,20 @@ contract YourCollectible is ERC721Enumerable, Ownable {
   constructor() ERC721("MadLibs onChain", "MLC") {
   }
 
-  function mintItem(/*string memory _text, uint8 _nBlanks*/) public payable returns (uint256) {
-    if(_tokenIds.current() > 0)
-        require(_madlibs[_tokenIds.current()-1].closed, "Previous MadLib not closed yet!");
+  function mintItem(string memory _text, uint8 _nBlanks) public payable returns (uint256) {
+    if(_tokenIds.current()+1 <= _madlibs.length)
+        require(_madlibs[_madlibs.length-1].closed, "Previous MadLib not closed yet!");
     uint256 id = _tokenIds.current();
     _mint(msg.sender, id);
     MadLib storage item2mint = _madlibs.push();
     item2mint.id = id;
-    item2mint.text = "le rose sono # pippo is #";//_text;
-    item2mint.nBlanks = 2;//_nBlanks;
+    item2mint.text = _text;
+    item2mint.nBlanks = _nBlanks;
     item2mint.closed = false;
     return id;
   }
 
-  function closeMadLib(uint _id) public onlyOwner{
+  function closeMadLib(uint _id) public {//TODO solo owner dell'nft
     require(_madlibs[_tokenIds.current()].closed == false, "Selected MadLib already closed!");
     _madlibs[_id].closed = true;
     _tokenIds.increment();

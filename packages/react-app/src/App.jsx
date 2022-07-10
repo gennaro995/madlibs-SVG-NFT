@@ -23,6 +23,7 @@ import {
   ThemeSwitch,
   NetworkDisplay,
   FaucetHint,
+  Popup
 } from "./components";
 import { NETWORKS, ALCHEMY_KEY } from "./constants";
 import externalContracts from "./contracts/external_contracts";
@@ -78,6 +79,12 @@ function App(props) {
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [inputText, setInputText] = useState(''); // '' is the initial state value
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  }
 
   // load all your providers
   const localProvider = useStaticJsonRPC([
@@ -293,19 +300,53 @@ function App(props) {
 
         <Button
           type="primary"
-          onClick={async () => {
-            const priceRightNow = await readContracts.YourCollectible.price();
-            try {
-              const txCur = await tx(writeContracts.YourCollectible.mintItem({ value: priceRightNow, gasLimit: 300000 }));
-              await txCur.wait();
-            } catch (e) {
-              console.log("mint failed", e);
-            }
-          }}
+          onClick={
+            togglePopup}
+          //   async () => {
+          //   const priceRightNow = await readContracts.YourCollectible.price();
+          //   try {
+          //     const txCur = await tx(writeContracts.YourCollectible.mintItem({ value: priceRightNow, gasLimit: 300000 }));
+          //     await txCur.wait();
+          //   } catch (e) {
+          //     console.log("mint failed", e);
+          //   }
+          // }}
         >
           MINT for Ξ{priceToMint && (+ethers.utils.formatEther(priceToMint)).toFixed(4)}
         </Button>
+        {isOpen && <Popup
+         content={<>
+          <form>
+            <h3>Insert your text!</h3>
+            <h4>Use # to indicate the Mad Lib! 
+            <br />
+             Example: Hello #, how are you?</h4> 
+            <br />
+            <label>
+              Text: <span></span>
+              <input type="text" value={inputText} onInput={e => setInputText(e.target.value)} />
+              <br />
+              
+            </label>
+            <br />
+            <Button
+                type="primary"
+                onClick={
+                async () => {
+                const priceRightNow = await readContracts.YourCollectible.price();
+                const nBlanks =  (inputText.match(/#/g)||[]).length;
+                console.log("text: ", inputText);
+                console.log("nBlanks: ", nBlanks);
+                let txCur = await tx(writeContracts.YourCollectible.mintItem(inputText, nBlanks,{value: priceRightNow, gasLimit: 300000 }));
+              }}
+           >Mint
+          </Button>            <br />
+          </form>
+          <br />
 
+        </>}
+          handleClose={togglePopup}
+        />}
         <p style={{ fontWeight: "bold" }}>
           { loogiesLeft } left
         </p>
