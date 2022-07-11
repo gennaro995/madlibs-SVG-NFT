@@ -74,7 +74,8 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     return id;
   }
 
-  function closeMadLib(uint _id) public {//TODO solo owner dell'nft
+  function closeMadLib(uint _id) public {
+    require(msg.sender == ownerOf(_id), "you are not the owner");
     require(_madlibs[_tokenIds.current()].closed == false, "Selected MadLib already closed!");
     _madlibs[_id].closed = true;
     _tokenIds.increment();
