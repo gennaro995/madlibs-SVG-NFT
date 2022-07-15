@@ -9,6 +9,10 @@ function Loogies({ readContracts, mainnetProvider, blockExplorer, totalSupply, D
   const [page, setPage] = useState(1);
   const [loadingLoogies, setLoadingLoogies] = useState(true);
   const perPage = 8;
+  const [open, setOpen] = useState(false);
+  const toggleProposal = () => {
+    setOpen(!open);
+  }
 
   useEffect(() => {
     const updateAllLoogies = async () => {
@@ -90,6 +94,11 @@ function Loogies({ readContracts, mainnetProvider, blockExplorer, totalSupply, D
                         blockExplorer={blockExplorer}
                         fontSize={16}
                       />
+                      <div>
+                        <Button type="primary" onClick={togglePopup}>
+                          INSERT PROPOSAL
+                        </Button>
+                      </div>
                     </div>
                   </Card>
                 </List.Item>
@@ -97,6 +106,7 @@ function Loogies({ readContracts, mainnetProvider, blockExplorer, totalSupply, D
             }}
           />
         </div>
+        
       )}
     </div>
   );

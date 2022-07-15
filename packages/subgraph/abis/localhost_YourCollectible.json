@@ -329,7 +329,18 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_text",
+        "type": "string"
+      },
+      {
+        "internalType": "uint8",
+        "name": "_nBlanks",
+        "type": "uint8"
+      }
+    ],
     "name": "mintItem",
     "outputs": [
       {

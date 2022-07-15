@@ -2094,8 +2094,8 @@
       ]
     },
     "/Users/gennarogiordano/Desktop/dev.nosync/my-github/madlibs-SVG-NFT/packages/hardhat/contracts/YourCollectible.sol": {
-      "lastModificationDate": 1657274493950,
-      "contentHash": "152aecb111f5b478c949b7a6e2dc0cac",
+      "lastModificationDate": 1657879469833,
+      "contentHash": "93b7cfc2cfc4207b98cb87526848be2e",
       "sourceName": "contracts/YourCollectible.sol",
       "solcConfig": {
         "version": "0.8.4",

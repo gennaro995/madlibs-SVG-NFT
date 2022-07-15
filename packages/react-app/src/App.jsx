@@ -283,10 +283,10 @@ function App(props) {
           <Link to="/">Home</Link>
         </Menu.Item>
         <Menu.Item key="/yourLoogies">
-          <Link to="/yourLoogies">Car Certification onChain</Link>
+          <Link to="/yourLoogies">MadLibs Game onChain</Link>
         </Menu.Item>
         <Menu.Item key="/howto">
-          <Link to="/howto">How To Use Car Certification onChain Network</Link>
+          <Link to="/howto">How To Use MadLibs Game onChain Network</Link>
         </Menu.Item>
         <Menu.Item key="/debug">
           <Link to="/debug">Debug Contracts</Link>
