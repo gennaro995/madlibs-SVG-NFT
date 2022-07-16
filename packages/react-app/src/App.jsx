@@ -356,6 +356,8 @@ function App(props) {
         <Route exact path="/">
           <Loogies
             readContracts={readContracts}
+            writeContracts={writeContracts}
+            tx={tx}
             mainnetProvider={mainnetProvider}
             blockExplorer={blockExplorer}
             totalSupply={totalSupply}
