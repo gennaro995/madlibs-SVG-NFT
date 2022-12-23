@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, List } from "antd";
 import { Address, AddressInput } from "../components";
 import { ethers } from "ethers";
+import {Popup} from "../components";
+
 
 function Home({
   readContracts,
@@ -16,13 +18,61 @@ function Home({
   setTransferToAddresses,
   address,
 }) {
+
+  const [open, setOpen] = useState(false);
+
+  async function toggleProposal () {
+    setOpen(!open);
+  }
+
+  async function voteProposal(index) {
+    console.log("VOTO Proposta...")
+    await tx(writeContracts.YourCollectible.voteProposal(index));
+  }
+
+
   return (
     <div>
       <div style={{ width: 600, margin: "auto", paddingBottom: 25 }}>
         <List
           dataSource={yourCollectibles}
           renderItem={item => {
+
+            function replaceHashtag(array) {
+              let text = item.text;
+              for (let index = 0; index < array.length; index++) {
+                text = text.replace('#',array[index])
+              }
+              return text;
+            }
+   
+            function divs(){
+              console.log("starting divs");
+              var parent = document.createElement("div");
+              item.proposals.forEach((element, index) =>  {
+                let div = document.createElement("div")
+                div.className = "proposal_row"
+                //Proposer: ${element[2]},
+                let html = `
+                  <span class="proposal_text">Proposal: ${replaceHashtag(element[0])},  votes: ${element[1]}   
+                  <button type="primary" id="prop${index}"> Vote</button>     </span>
+                  `;
+                div.innerHTML = html;
+                parent.appendChild(div);
+
+              })  
+              console.log(parent);
+              return parent;
+            }
+            function attachButton(){
+              console.log("initialize button");
+              item.proposals.forEach((element, index) =>  {
+                document.getElementById("prop"+index).onclick = function(){voteProposal(index)};;
+              })  
+              console.log("end attachButton");
+            }
             const id = item.id.toNumber();
+     
 
             return (
               <List.Item key={id + "_" + item.uri + "_" + item.owner}>
@@ -35,6 +85,19 @@ function Home({
                 >
                   <img src={item.image} alt={"Loogie #" + id} />
                   <div>{item.description}</div>
+                  <Button type="primary" onClick={async function(event){
+                                await toggleProposal(); 
+                                document.getElementById("popup_box").appendChild(divs())
+                                attachButton();
+                              }
+                            
+                            }>
+                      Show Proposals
+                    </Button>
+                    {open && <Popup                        
+                              handleClose={toggleProposal}
+                          />}
+
                   <div style={{ marginTop: 20 }}>
                     <AddressInput
                       ensProvider={mainnetProvider}
@@ -55,6 +118,7 @@ function Home({
                     </Button>
                   </div>
                 </Card>
+                
               </List.Item>
             );
           }}

@@ -12,8 +12,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
 
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
-  Counters.Counter private _proposalIds;
-  uint8 public _maxVotes = 3;
+  uint8 public _maxVotes = 99;
   MadLib[] public _madlibs;
   using Strings for uint256;
   using HexStrings for uint160;
@@ -94,16 +93,16 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     require (_madlibs[id].addrProposed[msg.sender] == false, "Player already has a proposal for this MadLib!");
     require (_words.length == _madlibs[id].nBlanks, "not right number of words!");
     _madlibs[id].addrProposed[msg.sender] = true;
-
     Proposal storage currentProposal = _madlibs[id].proposals.push();
     currentProposal.proposer = msg.sender;
     currentProposal.words = _words;
+
   }
 
   function voteProposal(uint _idProposal) public{
     uint256 id = _tokenIds.current();
     require (_madlibs[id].closed == false, "Proposal must be for open/current MadLib!");
-    require (_madlibs[id].addrVotes[msg.sender] < _maxVotes , "Proposal must be for open/current MadLib!");
+    require (_madlibs[id].addrVotes[msg.sender] < _maxVotes , "Too much votes");
     _madlibs[id].addrVotes[msg.sender]++;
     _madlibs[id].proposals[_idProposal].countVotes++;
   }

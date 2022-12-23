@@ -157,7 +157,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                                 <label>
                                   Text: <span></span>
                                   <input type="text" style={{resize: 'none'}} rows="4" cols="50" value={inputText} onInput={e => {
-                                    var proposals = (e.target.value).split(',');
+                                    var proposals = (e.target.value).split(/(?:,| )+/);
                                     setInputText(proposals)
                                   }} />
                                   <br />

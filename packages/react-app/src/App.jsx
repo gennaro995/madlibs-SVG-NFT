@@ -187,9 +187,16 @@ function App(props) {
           if (DEBUG) console.log("tokenURI: ", tokenURI);
           const jsonManifestString = atob(tokenURI.substring(29));
 
+          const proposals = await readContracts.YourCollectible.getProposals(tokenId);
+          if (DEBUG) console.log("proposals: ", proposals);
+
+          const text = await readContracts.YourCollectible._madlibs(tokenId);
+
+          if (DEBUG) console.log("text: ", text[1]);
+
           try {
             const jsonManifest = JSON.parse(jsonManifestString);
-            collectibleUpdate.push({ id: tokenId, uri: tokenURI, owner: address, ...jsonManifest });
+            collectibleUpdate.push({ id: tokenId, uri: tokenURI, owner: address,proposals: proposals, text: text[1], ...jsonManifest });
           } catch (e) {
             console.log(e);
           }
