@@ -75,12 +75,14 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
 
             const madLib = await readContracts.YourCollectible._madlibs(tokenId);
             const nBlanks = madLib[2];
+            const closed = madLib[3];
+
 
             if (DEBUG) console.log("Getting nblanks: ", nBlanks);
 
             try {
               const jsonManifest = JSON.parse(jsonManifestString);
-              collectibleUpdate.push({ id: tokenId, uri: tokenURI,nBlanks: nBlanks, ...jsonManifest });
+              collectibleUpdate.push({ id: tokenId, closed:closed, uri: tokenURI,nBlanks: nBlanks, ...jsonManifest });
             } catch (e) {
               console.log(e);
             }
@@ -124,7 +126,8 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
             dataSource={allLoogies}
             renderItem={item => {
               const id = item.id.toNumber();
-
+              console.log("itemm kitemm: ", item.closed);
+              const isClosed = item.closed;
               return (
                 <List.Item key={id + "_" + item.uri + "_" + item.owner}>
                   <Card
@@ -150,13 +153,13 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                         {open && <Popup
                             content={<>
                               <form id="proposals">
-                                <h3>Insert your Proposals!</h3>
+                                <h3 style={{color: 'navy'}}>Insert your Proposals!</h3>
                                 <br />
-                                <h4>Use comma to separate words </h4>
+                                <h4 style={{color: 'navy'}}>Use comma to separate words </h4>
                                  <br />
                                 <label>
                                   Text: <span></span>
-                                  <input type="text" style={{resize: 'none'}} rows="4" cols="50" value={inputText} onInput={e => {
+                                  <input type="text" style={{resize: 'none', background: 'red'}} rows="4" cols="50" value={inputText} onInput={e => {
                                     var proposals = (e.target.value).split(/(?:,| )+/);
                                     setInputText(proposals)
                                   }} />
@@ -171,6 +174,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                                     async () => {
                                     console.log("text: ", inputText);
                                     console.log("nBlanks: ", item.nBlanks);
+                                    
                                     let txCur = await tx(writeContracts.YourCollectible.addProposal(inputText));
                                   }}
                               >Insert Proposal
@@ -182,6 +186,29 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                               handleClose={toggleProposal}
                           />}
                       </div>
+                      {isClosed ? (
+                          <div>
+                          </div>
+                      ) :
+                          (
+                            <div>
+                              <Button type="primary" onClick={
+                                  async () => {
+                                    console.log("text: ", inputText);
+                                    console.log("nBlanks: ", item.nBlanks);
+                                    //if(!item.closed){
+                                      let txClose = await tx(writeContracts.YourCollectible.closeMadLib(id));
+                                    //}
+                                      
+                                  }
+                              }>CLOSE PROPOSAL
+                              </Button>
+                            </div>
+                            )
+                      
+                       
+                      }
+                      
                     </div>
                   </Card >
                 </List.Item>

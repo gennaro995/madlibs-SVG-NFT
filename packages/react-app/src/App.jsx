@@ -327,12 +327,12 @@ function App(props) {
         {isOpen && <Popup
          content={<>
           <form>
-            <h3>Insert your text!</h3>
-            <h4>Use # to indicate the Mad Lib! 
+            <h3 style={{color: 'navy'}}>Insert your text!</h3>
+            <h4 style={{color: 'navy'}} >Use # to indicate the Mad Lib! 
             <br />
              Example: Hello #, how are you?</h4> 
             <br />
-            <label>
+            <label style={{color: 'navy'}}>
               Text: <span></span>
               <textarea style={{resize: 'none'}} rows="4" cols="50" value={inputText} onInput={e => setInputText(e.target.value)} />
               <br />
