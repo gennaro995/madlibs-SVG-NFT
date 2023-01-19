@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import 'base64-sol/base64.sol';
 import './HexStrings.sol';
+//import './LibString.sol';
 
 contract YourCollectible is ERC721Enumerable, Ownable {
 
@@ -78,6 +79,9 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     require(_madlibs[_tokenIds.current()].closed == false, "Selected MadLib already closed!");
     _madlibs[_id].closed = true;
     _tokenIds.increment();
+    //string[] memory replacement = getBestProposal(_id);
+    //devo controllare come sostituire in ordine
+    //_madlibs[_id].text = LibString.replace(_madlibs[_id].text, "#", replacement[0]);
   }
 
    function getProposal(uint _id, uint _idProposal) public view returns(Proposal memory){
@@ -87,6 +91,18 @@ contract YourCollectible is ERC721Enumerable, Ownable {
   function getProposals(uint _id) public view returns(Proposal[] memory){
     return _madlibs[_id].proposals; 
   }
+
+  /*function getBestProposal(uint _id) public view returns(string[] memory){
+    uint max = 0;
+    uint maxindex = 0;
+    for(uint i = 0; i < _madlibs[_id].proposals.length; i++){
+      if(_madlibs[_id].proposals[i].countVotes >= max){
+        max = _madlibs[_id].proposals[i].countVotes;
+        maxindex = i;
+      }
+    }
+    return _madlibs[_id].proposals[maxindex].words;
+  }*/
 
   function addProposal(string[] memory _words) public{ 
     uint256 id = _tokenIds.current();
