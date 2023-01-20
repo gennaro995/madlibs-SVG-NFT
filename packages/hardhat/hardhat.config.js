@@ -69,6 +69,7 @@ module.exports = {
       allowUnlimitedContractSize: true,
       blockGasLimit: 0x1fffffffffffff,
       timeout: 1800000,
+      gasLimit: 300000,
       /*      
         notice no mnemonic here? it will just use account 0 of the hardhat node to deploy
         (you can put in a mnemonic here to set the deployer locally)
@@ -293,6 +294,9 @@ module.exports = {
           optimizer: {
             enabled: false,
             runs: 200,
+          },
+          libraries: {
+            "strings.sol": {strings: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"}
           },
         },
       },

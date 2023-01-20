@@ -9,15 +9,41 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deployer } = await getNamedAccounts();
   const chainId = await getChainId();
 
-  await deploy("YourCollectible", {
+  const stringsLib = await deploy("strings")
+
+  const stringsAddress = stringsLib.address //hard code this and comment out the line above after the first deploy
+
+  const yourContract = await deploy("YourCollectible",{from: deployer,from: deployer},{ "strings": stringsLib.address }) // <-- add in constructor args like line 16 vvvv
+
+  /*const lib = await deploy("strings", {
+    // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
+    from: deployer,
+    // args: [ "Hello", ethers.utils.parseEther("1.5") ],
+     from: deployer,
+  });*/
+
+ /* await deploy("YourCollectible", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     // args: [ "Hello", ethers.utils.parseEther("1.5") ],
     log: true,
-  });
+  },{
+    strings: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+   });*/
 
+   /*const contractFactory = await ethers.getContractFactory("YourCollectible", {
+      signer: deployer,
+      libraries: {
+        strings: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      },
+    });*/
+
+
+  /*const contract = await contractFactory.deploy();
+  console.log(contract.address);
   // Getting a previously deployed contract
-  const YourContract = await ethers.getContract("YourCollectible", deployer);
+  const YourContract = await ethers.getContract("YourCollectible", deployer);*/
+  //console.log(lib.address);
   /*  await YourContract.setPurpose("Hello");
   
     To take ownership of yourContract using the ownable library uncomment next line and add the 

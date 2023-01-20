@@ -12,6 +12,11 @@
             "enabled": false,
             "runs": 200
           },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
+          },
           "outputSelection": {
             "*": {
               "*": [
@@ -44,8 +49,8 @@
       ]
     },
     "/Users/gennarogiordano/Desktop/dev.nosync/my-github/madlibs-SVG-NFT/packages/hardhat/contracts/YourCollectible.sol": {
-      "lastModificationDate": 1674155040614,
-      "contentHash": "27f4369baec97b943246b61a1907c6a5",
+      "lastModificationDate": 1674230934393,
+      "contentHash": "337524d29eba2fdd395d7c47b51f1b07",
       "sourceName": "contracts/YourCollectible.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -53,6 +58,11 @@
           "optimizer": {
             "enabled": false,
             "runs": 200
+          },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
           },
           "outputSelection": {
             "*": {
@@ -83,7 +93,9 @@
         "@openzeppelin/contracts/access/Ownable.sol",
         "@openzeppelin/contracts/utils/Strings.sol",
         "base64-sol/base64.sol",
-        "./HexStrings.sol"
+        "./HexStrings.sol",
+        "./strings.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -102,6 +114,11 @@
           "optimizer": {
             "enabled": false,
             "runs": 200
+          },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
           },
           "outputSelection": {
             "*": {
@@ -148,6 +165,11 @@
             "enabled": false,
             "runs": 200
           },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
+          },
           "outputSelection": {
             "*": {
               "*": [
@@ -189,6 +211,11 @@
           "optimizer": {
             "enabled": false,
             "runs": 200
+          },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
           },
           "outputSelection": {
             "*": {
@@ -234,6 +261,11 @@
             "enabled": false,
             "runs": 200
           },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
+          },
           "outputSelection": {
             "*": {
               "*": [
@@ -275,6 +307,11 @@
           "optimizer": {
             "enabled": false,
             "runs": 200
+          },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
           },
           "outputSelection": {
             "*": {
@@ -318,6 +355,11 @@
             "enabled": false,
             "runs": 200
           },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
+          },
           "outputSelection": {
             "*": {
               "*": [
@@ -359,6 +401,11 @@
           "optimizer": {
             "enabled": false,
             "runs": 200
+          },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
           },
           "outputSelection": {
             "*": {
@@ -410,6 +457,11 @@
             "enabled": false,
             "runs": 200
           },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
+          },
           "outputSelection": {
             "*": {
               "*": [
@@ -453,6 +505,11 @@
           "optimizer": {
             "enabled": false,
             "runs": 200
+          },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
           },
           "outputSelection": {
             "*": {
@@ -498,6 +555,11 @@
             "enabled": false,
             "runs": 200
           },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
+          },
           "outputSelection": {
             "*": {
               "*": [
@@ -539,6 +601,11 @@
           "optimizer": {
             "enabled": false,
             "runs": 200
+          },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
           },
           "outputSelection": {
             "*": {
@@ -584,6 +651,11 @@
             "enabled": false,
             "runs": 200
           },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
+          },
           "outputSelection": {
             "*": {
               "*": [
@@ -626,6 +698,11 @@
             "enabled": false,
             "runs": 200
           },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
+          },
           "outputSelection": {
             "*": {
               "*": [
@@ -667,6 +744,11 @@
           "optimizer": {
             "enabled": false,
             "runs": 200
+          },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
           },
           "outputSelection": {
             "*": {
@@ -712,6 +794,11 @@
             "enabled": false,
             "runs": 200
           },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
+          },
           "outputSelection": {
             "*": {
               "*": [
@@ -741,6 +828,100 @@
       ],
       "artifacts": [
         "IERC165"
+      ]
+    },
+    "/Users/gennarogiordano/Desktop/dev.nosync/my-github/madlibs-SVG-NFT/packages/hardhat/contracts/strings.sol": {
+      "lastModificationDate": 1674232161639,
+      "contentHash": "945b2c3682ac458b23116996c0c4ce02",
+      "sourceName": "contracts/strings.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "strings"
+      ]
+    },
+    "/Users/gennarogiordano/Desktop/dev.nosync/my-github/madlibs-SVG-NFT/packages/hardhat/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1674153085126,
+      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "libraries": {
+            "strings.sol": {
+              "strings": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+            }
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
       ]
     }
   }

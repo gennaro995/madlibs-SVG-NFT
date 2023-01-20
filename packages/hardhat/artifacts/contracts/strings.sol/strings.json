@@ -1,0 +1,1291 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "strings",
+  "sourceName": "contracts/strings.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        }
+      ],
+      "name": "beyond",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "other",
+          "type": "tuple"
+        }
+      ],
+      "name": "compare",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "other",
+          "type": "tuple"
+        }
+      ],
+      "name": "concat",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        }
+      ],
+      "name": "contains",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        }
+      ],
+      "name": "copy",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        }
+      ],
+      "name": "count",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "cnt",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        }
+      ],
+      "name": "empty",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        }
+      ],
+      "name": "endsWith",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "other",
+          "type": "tuple"
+        }
+      ],
+      "name": "equals",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        }
+      ],
+      "name": "find",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice[]",
+          "name": "parts",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "join",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        }
+      ],
+      "name": "keccak",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "ret",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "self",
+          "type": "bytes32"
+        }
+      ],
+      "name": "len",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        }
+      ],
+      "name": "len",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "l",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "rune",
+          "type": "tuple"
+        }
+      ],
+      "name": "nextRune",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        }
+      ],
+      "name": "nextRune",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "ret",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        }
+      ],
+      "name": "ord",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "ret",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        }
+      ],
+      "name": "rfind",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "token",
+          "type": "tuple"
+        }
+      ],
+      "name": "rsplit",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        }
+      ],
+      "name": "rsplit",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "token",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "token",
+          "type": "tuple"
+        }
+      ],
+      "name": "split",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        }
+      ],
+      "name": "split",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "token",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        }
+      ],
+      "name": "startsWith",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "self",
+          "type": "string"
+        }
+      ],
+      "name": "toSlice",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "self",
+          "type": "bytes32"
+        }
+      ],
+      "name": "toSliceB32",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "ret",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        }
+      ],
+      "name": "toString",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "self",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "needle",
+          "type": "tuple"
+        }
+      ],
+      "name": "until",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_len",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "_ptr",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct strings.slice",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x612432610053600b82828239805160001a607314610046577f4e487b7100000000000000000000000000000000000000000000000000000000600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600436106101b35760003560e01c806373abf5f911610103578063ba547d26116100a1578063e687c3e91161007b578063e687c3e914610608578063f5f10b6514610638578063fb0c60a114610668578063fe71659c14610698576101b3565b8063ba547d2614610578578063c3a9b1f3146105a8578063def4d178146105d8576101b3565b806387f39b92116100dd57806387f39b92146104b85780638a7b032c146104e857806393ea9c1414610518578063afed762b14610548576101b3565b806373abf5f91461042857806375ad988d146104585780637a92f80f14610488576101b3565b806333fc12a9116101705780634a5f55481161014a5780634a5f5548146103685780634b5e282a146103985780634d5ed07a146103c8578063668c6738146103f8576101b3565b806333fc12a9146102d857806343ec3f3814610308578063486299a914610338576101b3565b80630a33d3da146101b8578063166c4b85146101e85780631c52e2fc146102185780631f8e60581461024857806321512c92146102785780632b8a41ef146102a8575b600080fd5b6101d260048036038101906101cd9190611bf7565b6106c8565b6040516101df9190611dcd565b60405180910390f35b61020260048036038101906101fd9190611b8d565b6106d9565b60405161020f9190611e40565b60405180910390f35b610232600480360381019061022d9190611c74565b610838565b60405161023f9190611e25565b60405180910390f35b610262600480360381019061025d9190611cb0565b610950565b60405161026f9190611e25565b60405180910390f35b610292600480360381019061028d9190611c74565b6109fe565b60405161029f9190611db2565b60405180910390f35b6102c260048036038101906102bd9190611c74565b610a2b565b6040516102cf9190611db2565b60405180910390f35b6102f260048036038101906102ed9190611c74565b610aa3565b6040516102ff9190611e25565b60405180910390f35b610322600480360381019061031d9190611b8d565b610abd565b60405161032f9190611e25565b60405180910390f35b610352600480360381019061034d9190611c74565b610af0565b60405161035f9190611e40565b60405180910390f35b610382600480360381019061037d9190611bf7565b610b98565b60405161038f9190611e25565b60405180910390f35b6103b260048036038101906103ad9190611cb0565b610bb0565b6040516103bf9190611e25565b60405180910390f35b6103e260048036038101906103dd9190611c74565b610c7b565b6040516103ef9190611db2565b60405180910390f35b610412600480360381019061040d9190611c20565b610c91565b60405161041f9190611e03565b60405180910390f35b610442600480360381019061043d9190611c74565b610f13565b60405161044f9190611e25565b60405180910390f35b610472600480360381019061046d9190611c74565b610fad565b60405161047f9190611db2565b60405180910390f35b6104a2600480360381019061049d9190611bf7565b611006565b6040516104af9190611db2565b60405180910390f35b6104d260048036038101906104cd9190611c74565b611016565b6040516104df9190611e03565b60405180910390f35b61050260048036038101906104fd9190611bf7565b6110ea565b60405161050f9190611e03565b60405180910390f35b610532600480360381019061052d9190611c74565b61118c565b60405161053f9190611e25565b60405180910390f35b610562600480360381019061055d9190611bb6565b6111a6565b60405161056f9190611e25565b60405180910390f35b610592600480360381019061058d9190611c74565b6111d4565b60405161059f9190611e25565b60405180910390f35b6105c260048036038101906105bd9190611bf7565b611238565b6040516105cf9190611e40565b60405180910390f35b6105f260048036038101906105ed9190611c74565b611347565b6040516105ff9190611e25565b60405180910390f35b610622600480360381019061061d9190611c74565b6113e2565b60405161062f9190611de8565b60405180910390f35b610652600480360381019061064d9190611bf7565b61151c565b60405161065f9190611e25565b60405180910390f35b610682600480360381019061067d9190611c74565b611548565b60405161068f9190611e25565b60405180910390f35b6106b260048036038101906106ad9190611bf7565b611593565b6040516106bf9190611e40565b60405180910390f35b600081516020830151209050919050565b6000806000801b8314156106f1576000915050610833565b60006fffffffffffffffffffffffffffffffff80168460001c1614156107465760108161071e9190611ef9565b90507001000000000000000000000000000000008360001c6107409190611f4f565b60001b92505b600067ffffffffffffffff80168460001c16141561078b5760088161076b9190611ef9565b9050680100000000000000008360001c6107859190611f4f565b60001b92505b600063ffffffff80168460001c1614156107c8576004816107ac9190611ef9565b90506401000000008360001c6107c29190611f4f565b60001b92505b600061ffff80168460001c161415610801576002816107e79190611ef9565b9050620100008360001c6107fb9190611f4f565b60001b92505b600060ff80168460001c1614156108225760018161081f9190611ef9565b90505b80602061082f91906121df565b9150505b919050565b6108406119ff565b826020015182602001818152505060008360000151141561086e57600082600001818152505081905061094a565b60008060ff601f60208701510351169050608081101561089157600191506108bc565b60e08110156108a357600291506108bb565b60f08110156108b557600391506108ba565b600491505b5b5b84600001518211156109085784600001518460000181815250508460000151856020018181516108ec9190611ef9565b915081815250506000856000018181525050839250505061094a565b818560200181815161091a9190611ef9565b91508181525050818560000181815161093391906121df565b915081815250508184600001818152505083925050505b92915050565b6109586119ff565b600061097685600001518660200151866000015187602001516116d0565b90508083602001818152505084602001518161099291906121df565b85600001516109a191906121df565b83600001818152505084602001518114156109c65760008560000181815250506109f3565b836000015183600001516109da9190611ef9565b856000018181516109eb91906121df565b915081815250505b829150509392505050565b60008260200151610a2184600001518560200151856000015186602001516116d0565b1415905092915050565b6000816000015183600001511015610a465760009050610a9d565b6000826000015184600001518560200151610a619190611ef9565b610a6b91906121df565b90508260200151811415610a83576001915050610a9d565b600083516020850151818120828520149250505080925050505b92915050565b610aab6119ff565b610ab6838383610950565b5092915050565b610ac56119ff565b6040516020810160405282815280602083015250610ae2826106d9565b816000018181525050919050565b6000808260000151610b148560000151866020015186600001518760200151611809565b610b1e9190611ef9565b90505b83600001518460200151610b359190611ef9565b8111610b91578180610b46906122da565b9250508260000151610b80856020015183610b6191906121df565b8660000151610b7091906121df565b8386600001518760200151611809565b610b8a9190611ef9565b9050610b21565b5092915050565b610ba06119ff565b610baa8282610838565b50919050565b610bb86119ff565b6000610bd68560000151866020015186600001518760200151611809565b90508460200151836020018181525050846020015181610bf691906121df565b83600001818152505084600001518560200151610c139190611ef9565b811415610c2a576000856000018181525050610c70565b83600001518360000151610c3e9190611ef9565b85600001818151610c4f91906121df565b91508181525050836000015181610c669190611ef9565b8560200181815250505b829150509392505050565b600080610c8884846113e2565b14905092915050565b6060600082511415610cb457604051806020016040528060008152509050610f0d565b600060018351610cc491906121df565b8460000151610cd391906120f1565b905060005b8351811015610d4657838181518110610d1a577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b60200260200101516000015182610d319190611ef9565b91508080610d3e906122da565b915050610cd8565b5060008167ffffffffffffffff811115610d89577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280601f01601f191660200182016040528015610dbb5781602001600182028036833780820191505090505b509050600060208201905060005b8551811015610f0557610e6582878381518110610e0f577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b602002602001015160200151888481518110610e54577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b602002602001015160000151611953565b858181518110610e9e577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b60200260200101516000015182610eb59190611ef9565b915060018651610ec591906121df565b811015610ef257610edf8288602001518960000151611953565b866000015182610eef9190611ef9565b91505b8080610efd906122da565b915050610dc9565b508193505050505b92915050565b610f1b6119ff565b816000015183600001511015610f3357829050610fa7565b6000600190508260200151846020015114610f61578251602085015160208501518281208383201493505050505b8015610fa257826000015184600001818151610f7d91906121df565b91508181525050826000015184602001818151610f9a9190611ef9565b915081815250505b839150505b92915050565b6000816000015183600001511015610fc85760009050611000565b816020015183602001511415610fe15760019050611000565b6000825160208501516020850151828120838320149350505050809150505b92915050565b6000808260000151149050919050565b606060008260000151846000015161102e9190611ef9565b67ffffffffffffffff81111561106d577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280601f01601f19166020018201604052801561109f5781602001600182028036833780820191505090505b50905060006020820190506110bd8186602001518760000151611953565b6110df8560000151826110d09190611ef9565b85602001518660000151611953565b819250505092915050565b60606000826000015167ffffffffffffffff811115611132577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280601f01601f1916602001820160405280156111645781602001600182028036833780820191505090505b50905060006020820190506111828185602001518660000151611953565b8192505050919050565b6111946119ff565b61119f838383610bb0565b5092915050565b6111ae6119ff565b600060208301905060405180604001604052808451815260200182815250915050919050565b6111dc6119ff565b60006111fa8460000151856020015185600001518660200151611809565b905083602001518161120c91906121df565b8460000181815161121d91906121df565b91508181525050808460200181815250508391505092915050565b600080601f836020015161124c91906121df565b905060008360000151826112609190611ef9565b9050600092505b8082101561134057600060ff835116905060808160ff161015611298576001836112919190611ef9565b925061132c565b60e08160ff1610156112b8576002836112b19190611ef9565b925061132b565b60f08160ff1610156112d8576003836112d19190611ef9565b925061132a565b60f88160ff1610156112f8576004836112f19190611ef9565b9250611329565b60fc8160ff161015611318576005836113119190611ef9565b9250611328565b6006836113259190611ef9565b92505b5b5b5b5b508280611338906122da565b935050611267565b5050919050565b61134f6119ff565b816000015183600001511015611367578290506113dc565b60008260000151846000015185602001516113829190611ef9565b61138c91906121df565b9050600060019050836020015182146113b2578351602085015181812082852014925050505b80156113d6578360000151856000018181516113ce91906121df565b915081815250505b84925050505b92915050565b6000808360000151905083600001518360000151101561140457826000015190505b60008460200151905060008460200151905060005b838110156114fb5760008084519150835190508082146114c75760007fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff905060208710156114a15760018488602061147191906121df565b61147b9190611ef9565b600861148791906120f1565b60026114939190611fd3565b61149d91906121df565b1990505b6000818316828516039050600081146114c4578098505050505050505050611516565b50505b6020856114d49190611ef9565b94506020846114e39190611ef9565b935050506020816114f49190611ef9565b9050611419565b5084600001518660000151611510919061214b565b93505050505b92915050565b6115246119ff565b60405180604001604052808360000151815260200183602001518152509050919050565b6115506119ff565b600061156e84600001518560200151856000015186602001516116d0565b905083602001518161158091906121df565b8460000181815250508391505092915050565b600080826000015114156115aa57600090506116cb565b60008060007f010000000000000000000000000000000000000000000000000000000000000090506020850151519250600081846115e89190611f4f565b905060808110156115ff578094506001925061163c565b60e081101561161757601f811694506002925061163b565b60f081101561162f57600f811694506003925061163a565b600781169450600492505b5b5b85600001518311156116555760009450505050506116cb565b6000600190505b838110156116c557610100836116729190611f4f565b925060ff83866116829190611f4f565b169150608060c083161461169e576000955050505050506116cb565b603f82166040876116af91906120f1565b17955080806116bd906122da565b91505061165c565b50505050505b919050565b6000808584116117fc5760208411611798576000808511156117245760018560206116fb91906121df565b600861170791906120f1565b60026117139190611fd3565b61171d91906121df565b1960001b90505b60008185511690508588886117399190611ef9565b61174391906121df565b925060008284511690505b818114611781578784116117685787945050505050611801565b83806117739061227f565b94505082845116905061174e565b868461178d9190611ef9565b945050505050611801565b6000848420905084876117ab91906121df565b866117b69190611ef9565b91505b8582106117fa5760008583209050808214156117e55785836117db9190611ef9565b9350505050611801565b6001836117f291906121df565b9250506117b9565b505b849150505b949350505050565b600080849050600086851161193a57602085116118dc5760008086111561186257600186602061183991906121df565b600861184591906120f1565b60026118519190611fd3565b61185b91906121df565b1960001b90505b60008186511690506000878a8a6118799190611ef9565b61188391906121df565b905060008386511690505b8281146118ce578186106118b5578a8a6118a89190611ef9565b965050505050505061194b565b85806118c0906122da565b96505083865116905061188e565b85965050505050505061194b565b60008585209050600091505b85886118f491906121df565b8211611938576000868420905080821415611915578394505050505061194b565b6001846119229190611ef9565b9350508180611930906122da565b9250506118e8565b505b86866119469190611ef9565b925050505b949350505050565b5b60208110611992578151835260208361196d9190611ef9565b925060208261197c9190611ef9565b915060208161198b91906121df565b9050611954565b60007fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff905060008211156119e95760018260206119cf91906121df565b6101006119dc9190611fd3565b6119e691906121df565b90505b8019835116818551168181178652505050505050565b604051806040016040528060008152602001600081525090565b6000611a2c611a2784611e80565b611e5b565b90508083825260208201905082856040860282011115611a4b57600080fd5b60005b85811015611a7b5781611a618882611b2c565b845260208401935060408301925050600181019050611a4e565b5050509392505050565b6000611a98611a9384611eac565b611e5b565b905082815260208101848484011115611ab057600080fd5b611abb84828561223d565b509392505050565b600082601f830112611ad457600080fd5b8135611ae4848260208601611a19565b91505092915050565b600081359050611afc816123ce565b92915050565b600082601f830112611b1357600080fd5b8135611b23848260208601611a85565b91505092915050565b600060408284031215611b3e57600080fd5b611b486040611e5b565b90506000611b5884828501611b78565b6000830152506020611b6c84828501611b78565b60208301525092915050565b600081359050611b87816123e5565b92915050565b600060208284031215611b9f57600080fd5b6000611bad84828501611aed565b91505092915050565b600060208284031215611bc857600080fd5b600082013567ffffffffffffffff811115611be257600080fd5b611bee84828501611b02565b91505092915050565b600060408284031215611c0957600080fd5b6000611c1784828501611b2c565b91505092915050565b60008060608385031215611c3357600080fd5b6000611c4185828601611b2c565b925050604083013567ffffffffffffffff811115611c5e57600080fd5b611c6a85828601611ac3565b9150509250929050565b60008060808385031215611c8757600080fd5b6000611c9585828601611b2c565b9250506040611ca685828601611b2c565b9150509250929050565b600080600060c08486031215611cc557600080fd5b6000611cd386828701611b2c565b9350506040611ce486828701611b2c565b9250506080611cf586828701611b2c565b9150509250925092565b611d0881612213565b82525050565b611d178161221f565b82525050565b611d2681612229565b82525050565b6000611d3782611edd565b611d418185611ee8565b9350611d5181856020860161224c565b611d5a816123b0565b840191505092915050565b604082016000820151611d7b6000850182611da3565b506020820151611d8e6020850182611da3565b50505050565b611d9d81612233565b82525050565b611dac81612233565b82525050565b6000602082019050611dc76000830184611cff565b92915050565b6000602082019050611de26000830184611d0e565b92915050565b6000602082019050611dfd6000830184611d1d565b92915050565b60006020820190508181036000830152611e1d8184611d2c565b905092915050565b6000604082019050611e3a6000830184611d65565b92915050565b6000602082019050611e556000830184611d94565b92915050565b6000611e65611e76565b9050611e7182826122a9565b919050565b6000604051905090565b600067ffffffffffffffff821115611e9b57611e9a612381565b5b602082029050602081019050919050565b600067ffffffffffffffff821115611ec757611ec6612381565b5b611ed0826123b0565b9050602081019050919050565b600081519050919050565b600082825260208201905092915050565b6000611f0482612233565b9150611f0f83612233565b9250827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03821115611f4457611f43612323565b5b828201905092915050565b6000611f5a82612233565b9150611f6583612233565b925082611f7557611f74612352565b5b828204905092915050565b6000808291508390505b6001851115611fca57808604811115611fa657611fa5612323565b5b6001851615611fb55780820291505b8081029050611fc3856123c1565b9450611f8a565b94509492505050565b6000611fde82612233565b9150611fe983612233565b92506120167fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff848461201e565b905092915050565b60008261202e57600190506120ea565b8161203c57600090506120ea565b8160018114612052576002811461205c5761208b565b60019150506120ea565b60ff84111561206e5761206d612323565b5b8360020a91508482111561208557612084612323565b5b506120ea565b5060208310610133831016604e8410600b84101617156120c05782820a9050838111156120bb576120ba612323565b5b6120ea565b6120cd8484846001611f80565b925090508184048111156120e4576120e3612323565b5b81810290505b9392505050565b60006120fc82612233565b915061210783612233565b9250817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04831182151516156121405761213f612323565b5b828202905092915050565b600061215682612229565b915061216183612229565b9250827f80000000000000000000000000000000000000000000000000000000000000000182126000841215161561219c5761219b612323565b5b827f7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0182136000841216156121d4576121d3612323565b5b828203905092915050565b60006121ea82612233565b91506121f583612233565b92508282101561220857612207612323565b5b828203905092915050565b60008115159050919050565b6000819050919050565b6000819050919050565b6000819050919050565b82818337600083830152505050565b60005b8381101561226a57808201518184015260208101905061224f565b83811115612279576000848401525b50505050565b600061228a82612233565b9150600082141561229e5761229d612323565b5b600182039050919050565b6122b2826123b0565b810181811067ffffffffffffffff821117156122d1576122d0612381565b5b80604052505050565b60006122e582612233565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82141561231857612317612323565b5b600182019050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6000601f19601f8301169050919050565b60008160011c9050919050565b6123d78161221f565b81146123e257600080fd5b50565b6123ee81612233565b81146123f957600080fd5b5056fea2646970667358221220f7315d63017f7eacf217ffb7216b64ee0ae4eb15488c7288945cfd1d7ebf0fe564736f6c63430008040033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600436106101b35760003560e01c806373abf5f911610103578063ba547d26116100a1578063e687c3e91161007b578063e687c3e914610608578063f5f10b6514610638578063fb0c60a114610668578063fe71659c14610698576101b3565b8063ba547d2614610578578063c3a9b1f3146105a8578063def4d178146105d8576101b3565b806387f39b92116100dd57806387f39b92146104b85780638a7b032c146104e857806393ea9c1414610518578063afed762b14610548576101b3565b806373abf5f91461042857806375ad988d146104585780637a92f80f14610488576101b3565b806333fc12a9116101705780634a5f55481161014a5780634a5f5548146103685780634b5e282a146103985780634d5ed07a146103c8578063668c6738146103f8576101b3565b806333fc12a9146102d857806343ec3f3814610308578063486299a914610338576101b3565b80630a33d3da146101b8578063166c4b85146101e85780631c52e2fc146102185780631f8e60581461024857806321512c92146102785780632b8a41ef146102a8575b600080fd5b6101d260048036038101906101cd9190611bf7565b6106c8565b6040516101df9190611dcd565b60405180910390f35b61020260048036038101906101fd9190611b8d565b6106d9565b60405161020f9190611e40565b60405180910390f35b610232600480360381019061022d9190611c74565b610838565b60405161023f9190611e25565b60405180910390f35b610262600480360381019061025d9190611cb0565b610950565b60405161026f9190611e25565b60405180910390f35b610292600480360381019061028d9190611c74565b6109fe565b60405161029f9190611db2565b60405180910390f35b6102c260048036038101906102bd9190611c74565b610a2b565b6040516102cf9190611db2565b60405180910390f35b6102f260048036038101906102ed9190611c74565b610aa3565b6040516102ff9190611e25565b60405180910390f35b610322600480360381019061031d9190611b8d565b610abd565b60405161032f9190611e25565b60405180910390f35b610352600480360381019061034d9190611c74565b610af0565b60405161035f9190611e40565b60405180910390f35b610382600480360381019061037d9190611bf7565b610b98565b60405161038f9190611e25565b60405180910390f35b6103b260048036038101906103ad9190611cb0565b610bb0565b6040516103bf9190611e25565b60405180910390f35b6103e260048036038101906103dd9190611c74565b610c7b565b6040516103ef9190611db2565b60405180910390f35b610412600480360381019061040d9190611c20565b610c91565b60405161041f9190611e03565b60405180910390f35b610442600480360381019061043d9190611c74565b610f13565b60405161044f9190611e25565b60405180910390f35b610472600480360381019061046d9190611c74565b610fad565b60405161047f9190611db2565b60405180910390f35b6104a2600480360381019061049d9190611bf7565b611006565b6040516104af9190611db2565b60405180910390f35b6104d260048036038101906104cd9190611c74565b611016565b6040516104df9190611e03565b60405180910390f35b61050260048036038101906104fd9190611bf7565b6110ea565b60405161050f9190611e03565b60405180910390f35b610532600480360381019061052d9190611c74565b61118c565b60405161053f9190611e25565b60405180910390f35b610562600480360381019061055d9190611bb6565b6111a6565b60405161056f9190611e25565b60405180910390f35b610592600480360381019061058d9190611c74565b6111d4565b60405161059f9190611e25565b60405180910390f35b6105c260048036038101906105bd9190611bf7565b611238565b6040516105cf9190611e40565b60405180910390f35b6105f260048036038101906105ed9190611c74565b611347565b6040516105ff9190611e25565b60405180910390f35b610622600480360381019061061d9190611c74565b6113e2565b60405161062f9190611de8565b60405180910390f35b610652600480360381019061064d9190611bf7565b61151c565b60405161065f9190611e25565b60405180910390f35b610682600480360381019061067d9190611c74565b611548565b60405161068f9190611e25565b60405180910390f35b6106b260048036038101906106ad9190611bf7565b611593565b6040516106bf9190611e40565b60405180910390f35b600081516020830151209050919050565b6000806000801b8314156106f1576000915050610833565b60006fffffffffffffffffffffffffffffffff80168460001c1614156107465760108161071e9190611ef9565b90507001000000000000000000000000000000008360001c6107409190611f4f565b60001b92505b600067ffffffffffffffff80168460001c16141561078b5760088161076b9190611ef9565b9050680100000000000000008360001c6107859190611f4f565b60001b92505b600063ffffffff80168460001c1614156107c8576004816107ac9190611ef9565b90506401000000008360001c6107c29190611f4f565b60001b92505b600061ffff80168460001c161415610801576002816107e79190611ef9565b9050620100008360001c6107fb9190611f4f565b60001b92505b600060ff80168460001c1614156108225760018161081f9190611ef9565b90505b80602061082f91906121df565b9150505b919050565b6108406119ff565b826020015182602001818152505060008360000151141561086e57600082600001818152505081905061094a565b60008060ff601f60208701510351169050608081101561089157600191506108bc565b60e08110156108a357600291506108bb565b60f08110156108b557600391506108ba565b600491505b5b5b84600001518211156109085784600001518460000181815250508460000151856020018181516108ec9190611ef9565b915081815250506000856000018181525050839250505061094a565b818560200181815161091a9190611ef9565b91508181525050818560000181815161093391906121df565b915081815250508184600001818152505083925050505b92915050565b6109586119ff565b600061097685600001518660200151866000015187602001516116d0565b90508083602001818152505084602001518161099291906121df565b85600001516109a191906121df565b83600001818152505084602001518114156109c65760008560000181815250506109f3565b836000015183600001516109da9190611ef9565b856000018181516109eb91906121df565b915081815250505b829150509392505050565b60008260200151610a2184600001518560200151856000015186602001516116d0565b1415905092915050565b6000816000015183600001511015610a465760009050610a9d565b6000826000015184600001518560200151610a619190611ef9565b610a6b91906121df565b90508260200151811415610a83576001915050610a9d565b600083516020850151818120828520149250505080925050505b92915050565b610aab6119ff565b610ab6838383610950565b5092915050565b610ac56119ff565b6040516020810160405282815280602083015250610ae2826106d9565b816000018181525050919050565b6000808260000151610b148560000151866020015186600001518760200151611809565b610b1e9190611ef9565b90505b83600001518460200151610b359190611ef9565b8111610b91578180610b46906122da565b9250508260000151610b80856020015183610b6191906121df565b8660000151610b7091906121df565b8386600001518760200151611809565b610b8a9190611ef9565b9050610b21565b5092915050565b610ba06119ff565b610baa8282610838565b50919050565b610bb86119ff565b6000610bd68560000151866020015186600001518760200151611809565b90508460200151836020018181525050846020015181610bf691906121df565b83600001818152505084600001518560200151610c139190611ef9565b811415610c2a576000856000018181525050610c70565b83600001518360000151610c3e9190611ef9565b85600001818151610c4f91906121df565b91508181525050836000015181610c669190611ef9565b8560200181815250505b829150509392505050565b600080610c8884846113e2565b14905092915050565b6060600082511415610cb457604051806020016040528060008152509050610f0d565b600060018351610cc491906121df565b8460000151610cd391906120f1565b905060005b8351811015610d4657838181518110610d1a577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b60200260200101516000015182610d319190611ef9565b91508080610d3e906122da565b915050610cd8565b5060008167ffffffffffffffff811115610d89577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280601f01601f191660200182016040528015610dbb5781602001600182028036833780820191505090505b509050600060208201905060005b8551811015610f0557610e6582878381518110610e0f577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b602002602001015160200151888481518110610e54577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b602002602001015160000151611953565b858181518110610e9e577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b60200260200101516000015182610eb59190611ef9565b915060018651610ec591906121df565b811015610ef257610edf8288602001518960000151611953565b866000015182610eef9190611ef9565b91505b8080610efd906122da565b915050610dc9565b508193505050505b92915050565b610f1b6119ff565b816000015183600001511015610f3357829050610fa7565b6000600190508260200151846020015114610f61578251602085015160208501518281208383201493505050505b8015610fa257826000015184600001818151610f7d91906121df565b91508181525050826000015184602001818151610f9a9190611ef9565b915081815250505b839150505b92915050565b6000816000015183600001511015610fc85760009050611000565b816020015183602001511415610fe15760019050611000565b6000825160208501516020850151828120838320149350505050809150505b92915050565b6000808260000151149050919050565b606060008260000151846000015161102e9190611ef9565b67ffffffffffffffff81111561106d577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280601f01601f19166020018201604052801561109f5781602001600182028036833780820191505090505b50905060006020820190506110bd8186602001518760000151611953565b6110df8560000151826110d09190611ef9565b85602001518660000151611953565b819250505092915050565b60606000826000015167ffffffffffffffff811115611132577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280601f01601f1916602001820160405280156111645781602001600182028036833780820191505090505b50905060006020820190506111828185602001518660000151611953565b8192505050919050565b6111946119ff565b61119f838383610bb0565b5092915050565b6111ae6119ff565b600060208301905060405180604001604052808451815260200182815250915050919050565b6111dc6119ff565b60006111fa8460000151856020015185600001518660200151611809565b905083602001518161120c91906121df565b8460000181815161121d91906121df565b91508181525050808460200181815250508391505092915050565b600080601f836020015161124c91906121df565b905060008360000151826112609190611ef9565b9050600092505b8082101561134057600060ff835116905060808160ff161015611298576001836112919190611ef9565b925061132c565b60e08160ff1610156112b8576002836112b19190611ef9565b925061132b565b60f08160ff1610156112d8576003836112d19190611ef9565b925061132a565b60f88160ff1610156112f8576004836112f19190611ef9565b9250611329565b60fc8160ff161015611318576005836113119190611ef9565b9250611328565b6006836113259190611ef9565b92505b5b5b5b5b508280611338906122da565b935050611267565b5050919050565b61134f6119ff565b816000015183600001511015611367578290506113dc565b60008260000151846000015185602001516113829190611ef9565b61138c91906121df565b9050600060019050836020015182146113b2578351602085015181812082852014925050505b80156113d6578360000151856000018181516113ce91906121df565b915081815250505b84925050505b92915050565b6000808360000151905083600001518360000151101561140457826000015190505b60008460200151905060008460200151905060005b838110156114fb5760008084519150835190508082146114c75760007fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff905060208710156114a15760018488602061147191906121df565b61147b9190611ef9565b600861148791906120f1565b60026114939190611fd3565b61149d91906121df565b1990505b6000818316828516039050600081146114c4578098505050505050505050611516565b50505b6020856114d49190611ef9565b94506020846114e39190611ef9565b935050506020816114f49190611ef9565b9050611419565b5084600001518660000151611510919061214b565b93505050505b92915050565b6115246119ff565b60405180604001604052808360000151815260200183602001518152509050919050565b6115506119ff565b600061156e84600001518560200151856000015186602001516116d0565b905083602001518161158091906121df565b8460000181815250508391505092915050565b600080826000015114156115aa57600090506116cb565b60008060007f010000000000000000000000000000000000000000000000000000000000000090506020850151519250600081846115e89190611f4f565b905060808110156115ff578094506001925061163c565b60e081101561161757601f811694506002925061163b565b60f081101561162f57600f811694506003925061163a565b600781169450600492505b5b5b85600001518311156116555760009450505050506116cb565b6000600190505b838110156116c557610100836116729190611f4f565b925060ff83866116829190611f4f565b169150608060c083161461169e576000955050505050506116cb565b603f82166040876116af91906120f1565b17955080806116bd906122da565b91505061165c565b50505050505b919050565b6000808584116117fc5760208411611798576000808511156117245760018560206116fb91906121df565b600861170791906120f1565b60026117139190611fd3565b61171d91906121df565b1960001b90505b60008185511690508588886117399190611ef9565b61174391906121df565b925060008284511690505b818114611781578784116117685787945050505050611801565b83806117739061227f565b94505082845116905061174e565b868461178d9190611ef9565b945050505050611801565b6000848420905084876117ab91906121df565b866117b69190611ef9565b91505b8582106117fa5760008583209050808214156117e55785836117db9190611ef9565b9350505050611801565b6001836117f291906121df565b9250506117b9565b505b849150505b949350505050565b600080849050600086851161193a57602085116118dc5760008086111561186257600186602061183991906121df565b600861184591906120f1565b60026118519190611fd3565b61185b91906121df565b1960001b90505b60008186511690506000878a8a6118799190611ef9565b61188391906121df565b905060008386511690505b8281146118ce578186106118b5578a8a6118a89190611ef9565b965050505050505061194b565b85806118c0906122da565b96505083865116905061188e565b85965050505050505061194b565b60008585209050600091505b85886118f491906121df565b8211611938576000868420905080821415611915578394505050505061194b565b6001846119229190611ef9565b9350508180611930906122da565b9250506118e8565b505b86866119469190611ef9565b925050505b949350505050565b5b60208110611992578151835260208361196d9190611ef9565b925060208261197c9190611ef9565b915060208161198b91906121df565b9050611954565b60007fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff905060008211156119e95760018260206119cf91906121df565b6101006119dc9190611fd3565b6119e691906121df565b90505b8019835116818551168181178652505050505050565b604051806040016040528060008152602001600081525090565b6000611a2c611a2784611e80565b611e5b565b90508083825260208201905082856040860282011115611a4b57600080fd5b60005b85811015611a7b5781611a618882611b2c565b845260208401935060408301925050600181019050611a4e565b5050509392505050565b6000611a98611a9384611eac565b611e5b565b905082815260208101848484011115611ab057600080fd5b611abb84828561223d565b509392505050565b600082601f830112611ad457600080fd5b8135611ae4848260208601611a19565b91505092915050565b600081359050611afc816123ce565b92915050565b600082601f830112611b1357600080fd5b8135611b23848260208601611a85565b91505092915050565b600060408284031215611b3e57600080fd5b611b486040611e5b565b90506000611b5884828501611b78565b6000830152506020611b6c84828501611b78565b60208301525092915050565b600081359050611b87816123e5565b92915050565b600060208284031215611b9f57600080fd5b6000611bad84828501611aed565b91505092915050565b600060208284031215611bc857600080fd5b600082013567ffffffffffffffff811115611be257600080fd5b611bee84828501611b02565b91505092915050565b600060408284031215611c0957600080fd5b6000611c1784828501611b2c565b91505092915050565b60008060608385031215611c3357600080fd5b6000611c4185828601611b2c565b925050604083013567ffffffffffffffff811115611c5e57600080fd5b611c6a85828601611ac3565b9150509250929050565b60008060808385031215611c8757600080fd5b6000611c9585828601611b2c565b9250506040611ca685828601611b2c565b9150509250929050565b600080600060c08486031215611cc557600080fd5b6000611cd386828701611b2c565b9350506040611ce486828701611b2c565b9250506080611cf586828701611b2c565b9150509250925092565b611d0881612213565b82525050565b611d178161221f565b82525050565b611d2681612229565b82525050565b6000611d3782611edd565b611d418185611ee8565b9350611d5181856020860161224c565b611d5a816123b0565b840191505092915050565b604082016000820151611d7b6000850182611da3565b506020820151611d8e6020850182611da3565b50505050565b611d9d81612233565b82525050565b611dac81612233565b82525050565b6000602082019050611dc76000830184611cff565b92915050565b6000602082019050611de26000830184611d0e565b92915050565b6000602082019050611dfd6000830184611d1d565b92915050565b60006020820190508181036000830152611e1d8184611d2c565b905092915050565b6000604082019050611e3a6000830184611d65565b92915050565b6000602082019050611e556000830184611d94565b92915050565b6000611e65611e76565b9050611e7182826122a9565b919050565b6000604051905090565b600067ffffffffffffffff821115611e9b57611e9a612381565b5b602082029050602081019050919050565b600067ffffffffffffffff821115611ec757611ec6612381565b5b611ed0826123b0565b9050602081019050919050565b600081519050919050565b600082825260208201905092915050565b6000611f0482612233565b9150611f0f83612233565b9250827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03821115611f4457611f43612323565b5b828201905092915050565b6000611f5a82612233565b9150611f6583612233565b925082611f7557611f74612352565b5b828204905092915050565b6000808291508390505b6001851115611fca57808604811115611fa657611fa5612323565b5b6001851615611fb55780820291505b8081029050611fc3856123c1565b9450611f8a565b94509492505050565b6000611fde82612233565b9150611fe983612233565b92506120167fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff848461201e565b905092915050565b60008261202e57600190506120ea565b8161203c57600090506120ea565b8160018114612052576002811461205c5761208b565b60019150506120ea565b60ff84111561206e5761206d612323565b5b8360020a91508482111561208557612084612323565b5b506120ea565b5060208310610133831016604e8410600b84101617156120c05782820a9050838111156120bb576120ba612323565b5b6120ea565b6120cd8484846001611f80565b925090508184048111156120e4576120e3612323565b5b81810290505b9392505050565b60006120fc82612233565b915061210783612233565b9250817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04831182151516156121405761213f612323565b5b828202905092915050565b600061215682612229565b915061216183612229565b9250827f80000000000000000000000000000000000000000000000000000000000000000182126000841215161561219c5761219b612323565b5b827f7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0182136000841216156121d4576121d3612323565b5b828203905092915050565b60006121ea82612233565b91506121f583612233565b92508282101561220857612207612323565b5b828203905092915050565b60008115159050919050565b6000819050919050565b6000819050919050565b6000819050919050565b82818337600083830152505050565b60005b8381101561226a57808201518184015260208101905061224f565b83811115612279576000848401525b50505050565b600061228a82612233565b9150600082141561229e5761229d612323565b5b600182039050919050565b6122b2826123b0565b810181811067ffffffffffffffff821117156122d1576122d0612381565b5b80604052505050565b60006122e582612233565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82141561231857612317612323565b5b600182019050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6000601f19601f8301169050919050565b60008160011c9050919050565b6123d78161221f565b81146123e257600080fd5b50565b6123ee81612233565b81146123f957600080fd5b5056fea2646970667358221220f7315d63017f7eacf217ffb7216b64ee0ae4eb15488c7288945cfd1d7ebf0fe564736f6c63430008040033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

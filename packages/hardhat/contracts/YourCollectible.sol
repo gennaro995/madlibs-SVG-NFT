@@ -8,6 +8,8 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import 'base64-sol/base64.sol';
 import './HexStrings.sol';
 //import './LibString.sol';
+import "./strings.sol";
+import "hardhat/console.sol";
 
 contract YourCollectible is ERC721Enumerable, Ownable {
 
@@ -20,7 +22,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
    // all funds go to buidlguidl.eth
   address payable public constant recipient = payable(0xa81a6a910FeD20374361B35C451a4a44F86CeD46);
   uint256 public price = 0.001 ether;
-
+  using strings for *;
   /**
   * @dev
   * Note: 
@@ -79,9 +81,23 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     require(_madlibs[_tokenIds.current()].closed == false, "Selected MadLib already closed!");
     _madlibs[_id].closed = true;
     _tokenIds.increment();
-    //string[] memory replacement = getBestProposal(_id);
+    string[] memory replacement = getBestProposal(_id);
+    //console.log(replacement[0]);
     //devo controllare come sostituire in ordine
     //_madlibs[_id].text = LibString.replace(_madlibs[_id].text, "#", replacement[0]);
+    strings.slice[] memory parts;
+    strings.slice memory temptext = "".toSlice();
+    strings.slice memory space = " ".toSlice();
+    strings.slice memory slicetext = _madlibs[_id].text.toSlice();
+    for(uint i = 0; i < _madlibs[_id].nBlanks; i++) {
+      parts[i] = slicetext.split("#".toSlice());
+      temptext = strings.concat(temptext, parts[i]).toSlice();
+      temptext = strings.concat(temptext, space).toSlice();
+      temptext = strings.concat(temptext, replacement[i].toSlice()).toSlice();
+      temptext = strings.concat(temptext, space).toSlice();
+    }
+    console.log(temptext.toString());
+    _madlibs[_id].text = temptext.toString();
   }
 
    function getProposal(uint _id, uint _idProposal) public view returns(Proposal memory){
@@ -92,7 +108,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
     return _madlibs[_id].proposals; 
   }
 
-  /*function getBestProposal(uint _id) public view returns(string[] memory){
+  function getBestProposal(uint _id) public view returns(string[] memory){
     uint max = 0;
     uint maxindex = 0;
     for(uint i = 0; i < _madlibs[_id].proposals.length; i++){
@@ -102,7 +118,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
       }
     }
     return _madlibs[_id].proposals[maxindex].words;
-  }*/
+  }
 
   function addProposal(string[] memory _words) public{ 
     uint256 id = _tokenIds.current();
