@@ -72,7 +72,7 @@ library MadLibsUtility {
       '<rect width="99%" height="99%" fill="white" />',
       //'<text x="0" y="15" fill="white">I love SVG! Targa:', targa[id] ,'</text>'
       '<text x="15" y="30" style="fill:black;"> ' ,text,' ',
-        '<tspan x="15" y="85">XXXXX </tspan> XXXX',
+        '<tspan x="15" y="85"> </tspan> ',
       '</text>'
     ));
   }
