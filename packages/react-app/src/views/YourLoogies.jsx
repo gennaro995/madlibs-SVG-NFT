@@ -85,18 +85,19 @@ function Home({
                 >
                   <img src={item.image} alt={"Loogie #" + id} />
                   <div>{item.description}</div>
-                  <Button type="primary" onClick={async function(event){
+                  <Button id={id} type="primary" onClick={async function(event){
                                 await toggleProposal(); 
-                                document.getElementById("popup_box").appendChild(divs())
+                                document.getElementById("popup_box"+id).appendChild(divs())
                                 attachButton();
+    
                               }
                             
                             }>
                       Show Proposals
                     </Button>
-                    {open && <Popup                        
-                              handleClose={toggleProposal}
-                          />}
+                    {open && <Popup param = {id}                     
+                                handleClose={toggleProposal}
+                            />}
 
                   <div style={{ marginTop: 20 }}>
                     <AddressInput

@@ -177,11 +177,14 @@ function App(props) {
 
   useEffect(() => {
     const updateYourCollectibles = async () => {
+      //setLoadingLoogies(true);
       const collectibleUpdate = [];
-      for (let tokenIndex = 0; tokenIndex < balance; tokenIndex++) {
+      //let startIndex = totalSupply - 1 - perPage * (page - 1);
+      for (let tokenIndex = 0; tokenIndex < totalSupply; tokenIndex++) {
+      //for (let tokenIndex = startIndex; tokenIndex > startIndex - perPage && tokenIndex >= 0; tokenIndex--) {
         try {
           if (DEBUG) console.log("Getting token index", tokenIndex);
-          const tokenId = await readContracts.YourCollectible.tokenOfOwnerByIndex(address, tokenIndex);
+          const tokenId = await readContracts.YourCollectible.tokenByIndex(tokenIndex);
           if (DEBUG) console.log("Getting Loogie tokenId: ", tokenId);
           const tokenURI = await readContracts.YourCollectible.tokenURI(tokenId);
           if (DEBUG) console.log("tokenURI: ", tokenURI);
@@ -324,12 +327,12 @@ function App(props) {
         {isOpen && <Popup
          content={<>
           <form>
-            <h3>Insert your text!</h3>
-            <h4>Use # to indicate the Mad Lib! 
+            <h3 style={{color: 'navy'}}>Insert your text!</h3>
+            <h4 style={{color: 'navy'}} >Use # to indicate the Mad Lib! 
             <br />
              Example: Hello #, how are you?</h4> 
             <br />
-            <label>
+            <label style={{color: 'navy'}}>
               Text: <span></span>
               <textarea style={{resize: 'none'}} rows="4" cols="50" value={inputText} onInput={e => setInputText(e.target.value)} />
               <br />
