@@ -67,8 +67,9 @@ module.exports = {
     localhost: {
       url: "http://localhost:8545",
       allowUnlimitedContractSize: true,
-      blockGasLimit: 0x1fffffffffffff,
+      blockGasLimit: 300000000,
       timeout: 1800000,
+      gasLimit: 30000000,
       /*      
         notice no mnemonic here? it will just use account 0 of the hardhat node to deploy
         (you can put in a mnemonic here to set the deployer locally)
