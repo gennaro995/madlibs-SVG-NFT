@@ -19,11 +19,21 @@ function Home({
   address,
 }) {
 
+  const initOpen = [false,false]
   const [open, setOpen] = useState(false);
 
-  async function toggleProposal () {
+  async function closeProposal () {
     setOpen(!open);
   }
+  async function toggleProposal (id) {
+    setOpen(!open);
+  }
+  function handleOpens(id){
+    open[id] = true;
+    return open;
+  }
+
+
 
   async function voteProposal(index) {
     console.log("VOTO Proposta...")
@@ -34,7 +44,11 @@ function Home({
   return (
     <div>
       <div style={{ width: 600, margin: "auto", paddingBottom: 25 }}>
+      {open && <Popup                     
+            handleClose={closeProposal}   
+            />}
         <List
+        
           dataSource={yourCollectibles}
           renderItem={item => {
 
@@ -49,6 +63,7 @@ function Home({
             function divs(){
               console.log("starting divs");
               var parent = document.createElement("div");
+              parent.setAttribute("id", "proposals");
               item.proposals.forEach((element, index) =>  {
                 let div = document.createElement("div")
                 div.className = "proposal_row"
@@ -72,11 +87,12 @@ function Home({
               console.log("end attachButton");
             }
             const id = item.id.toNumber();
-     
 
             return (
               <List.Item key={id + "_" + item.uri + "_" + item.owner}>
+  
                 <Card
+                
                   title={
                     <div>
                       <span style={{ fontSize: 18, marginRight: 8 }}>{item.name}</span>
@@ -86,8 +102,9 @@ function Home({
                   <img src={item.image} alt={"Loogie #" + id} />
                   <div>{item.description}</div>
                   <Button id={id} type="primary" onClick={async function(event){
-                                await toggleProposal(); 
-                                document.getElementById("popup_box"+id).appendChild(divs())
+                                await toggleProposal(id); 
+                                console.log(open);
+                                document.getElementById("popup_box").appendChild(divs());
                                 attachButton();
     
                               }
@@ -95,9 +112,6 @@ function Home({
                             }>
                       Show Proposals
                     </Button>
-                    {open && <Popup param = {id}                     
-                                handleClose={toggleProposal}
-                            />}
 
                   <div style={{ marginTop: 20 }}>
                     <AddressInput
