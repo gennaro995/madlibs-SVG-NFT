@@ -17,9 +17,9 @@ function Home({
   transferToAddresses,
   setTransferToAddresses,
   address,
+  totalSupply
 }) {
 
-  const initOpen = [false,false]
   const [open, setOpen] = useState(false);
 
   async function closeProposal () {
@@ -28,12 +28,6 @@ function Home({
   async function toggleProposal (id) {
     setOpen(!open);
   }
-  function handleOpens(id){
-    open[id] = true;
-    return open;
-  }
-
-
 
   async function voteProposal(index) {
     console.log("VOTO Proposta...")

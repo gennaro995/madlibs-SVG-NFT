@@ -58,7 +58,7 @@ library MadLibsUtility {
   function generateSVGofToken(string memory text) internal pure returns (string memory) {
 
     string memory svg = string(abi.encodePacked(
-      '<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">',
+      '<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
         renderToken(text),
       '</svg>'
     ));
@@ -69,11 +69,13 @@ library MadLibsUtility {
   function renderToken(string memory text) internal pure returns (string memory) {
 
     return string(abi.encodePacked(
-      '<rect width="99%" height="99%" fill="white" />',
+      '<defs>',
       //'<text x="0" y="15" fill="white">I love SVG! Targa:', targa[id] ,'</text>'
-      '<text x="15" y="30" style="fill:black;"> ' ,text,' ',
-        '<tspan x="15" y="85"> </tspan> ',
-      '</text>'
-    ));
+      '<path id="path1" d="M5,30 H295 M5,60 H295 M5,90 H295 M5,120 H295 M5,150 H295 M5,180 H295"></path>',
+      '</defs>',
+      '<use xlink:href="#path1" x="0" y="35" />',
+      ' <text transform="translate(0,35)" fill="black" font-size="13">',
+      '  <textPath xlink:href="#path1">',text,'</textPath>',
+      ' </text>'    ));
   }
 }

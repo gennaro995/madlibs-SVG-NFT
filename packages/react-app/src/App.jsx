@@ -386,6 +386,7 @@ function App(props) {
             transferToAddresses={transferToAddresses}
             setTransferToAddresses={setTransferToAddresses}
             address={address}
+            totalSupply={totalSupply}
           />
         </Route>
         <Route exact path="/howto">
