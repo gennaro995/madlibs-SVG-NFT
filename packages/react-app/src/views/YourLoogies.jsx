@@ -97,7 +97,6 @@ function Home({
                   <div>{item.description}</div>
                   <Button id={id} type="primary" onClick={async function(event){
                                 await toggleProposal(id); 
-                                console.log(open);
                                 document.getElementById("popup_box").appendChild(divs());
                                 attachButton();
     

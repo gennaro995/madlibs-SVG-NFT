@@ -5,8 +5,9 @@ import { Address } from "../components";
 import { ethers } from "ethers";
 import {Popup} from "../components";
 import { Transactor, Web3ModalSetup } from "../helpers";
+import {useUserProviderAndSigner} from "eth-hooks";
 
-function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplorer, totalSupply, DEBUG }) {
+function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplorer, totalSupply, DEBUG, address }) {
   const [allLoogies, setAllLoogies] = useState();
   const [page, setPage] = useState(1);
   const [loadingLoogies, setLoadingLoogies] = useState(true);
@@ -185,23 +186,18 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                               handleClose={toggleProposal}
                           />}
                       </div>
-                      {isClosed ? (
+                      {!isClosed && item.owner.toLowerCase() == address.toLowerCase() ? (
                           <div>
+                            <Button type="primary" onClick={
+                                  async () => {                                   
+                                      let txClose = await tx(writeContracts.YourCollectible.closeMadLib(id));
+                                  }
+                              }>CLOSE PROPOSAL
+                              </Button>
                           </div>
                       ) :
                           (
                             <div>
-                              <Button type="primary" onClick={
-                                  async () => {
-                                    console.log("text: ", inputText);
-                                    console.log("nBlanks: ", item.nBlanks);
-                                    //if(!item.closed){
-                                      let txClose = await tx(writeContracts.YourCollectible.closeMadLib(id));
-                                    //}
-                                      
-                                  }
-                              }>CLOSE PROPOSAL
-                              </Button>
                             </div>
                             )
                       
