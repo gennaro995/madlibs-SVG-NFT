@@ -4,6 +4,7 @@ node_modules/**
 **/node_modules/
 node_modules/
 \node_modules\
+*/packages/hardhat/artifacts*
 node_modules/@ethersproject/abi/package.json
 node_modules/@ethersproject/abi/lib/_version.d.ts
 node_modules/@ethersproject/abi/lib/_version.js

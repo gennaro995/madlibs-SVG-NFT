@@ -147,9 +147,18 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                         fontSize={16}
                       />
                       <div>
-                        <Button type="primary" onClick={toggleProposal}>
-                          INSERT PROPOSAL
-                        </Button>
+                      {!isClosed ? (
+                        <div>
+                          <Button type="primary" onClick={toggleProposal}>
+                            INSERT PROPOSAL
+                          </Button>
+                        </div>
+                      ) :
+                          (
+                            <div>
+                            </div>
+                            )
+                      }
                         {open && <Popup
                             content={<>
                               <form id="proposals">

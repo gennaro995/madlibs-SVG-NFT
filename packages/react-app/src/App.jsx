@@ -372,6 +372,7 @@ function App(props) {
             blockExplorer={blockExplorer}
             totalSupply={totalSupply}
             DEBUG={DEBUG}
+            address={address}
           />
         </Route>
         <Route exact path="/yourLoogies">
