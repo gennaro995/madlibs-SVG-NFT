@@ -44,8 +44,8 @@
       ]
     },
     "/Users/lorenzodipuorto/Desktop/$_maybe/git/madlibs-SVG-NFT/packages/hardhat/contracts/YourCollectible.sol": {
-      "lastModificationDate": 1671805095200,
-      "contentHash": "0926eb447e066089d3cff90f9d56c2d0",
+      "lastModificationDate": 1674307615427,
+      "contentHash": "8020aaf9acd39dbc6c8e7292d04a842e",
       "sourceName": "contracts/YourCollectible.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -81,9 +81,8 @@
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
         "@openzeppelin/contracts/utils/Counters.sol",
         "@openzeppelin/contracts/access/Ownable.sol",
-        "@openzeppelin/contracts/utils/Strings.sol",
-        "base64-sol/base64.sol",
-        "./HexStrings.sol"
+        "./MadLibsUtility.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -699,6 +698,137 @@
       ],
       "artifacts": [
         "IERC165"
+      ]
+    },
+    "/Users/lorenzodipuorto/Desktop/$_maybe/git/madlibs-SVG-NFT/packages/hardhat/contracts/MadLibsUtility.sol": {
+      "lastModificationDate": 1674480795114,
+      "contentHash": "8e57f82dedf520bdb01db0b2ebfbeafa",
+      "sourceName": "contracts/MadLibsUtility.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [
+        "./strings.sol",
+        "./HexStrings.sol",
+        "base64-sol/base64.sol",
+        "@openzeppelin/contracts/utils/Strings.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "MadLibsUtility"
+      ]
+    },
+    "/Users/lorenzodipuorto/Desktop/$_maybe/git/madlibs-SVG-NFT/packages/hardhat/contracts/strings.sol": {
+      "lastModificationDate": 1674307617511,
+      "contentHash": "036b8ae4505915ff8164c19ac253a153",
+      "sourceName": "contracts/strings.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "strings"
+      ]
+    },
+    "/Users/lorenzodipuorto/Desktop/$_maybe/git/madlibs-SVG-NFT/packages/hardhat/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1674308362832,
+      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
       ]
     }
   }

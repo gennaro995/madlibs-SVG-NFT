@@ -184,7 +184,7 @@ function App(props) {
       //for (let tokenIndex = startIndex; tokenIndex > startIndex - perPage && tokenIndex >= 0; tokenIndex--) {
         try {
           if (DEBUG) console.log("Getting token index", tokenIndex);
-          const tokenId = await readContracts.YourCollectible.tokenByIndex(tokenIndex);
+          const tokenId = await readContracts.YourCollectible.tokenOfOwnerByIndex(address, tokenIndex);
           if (DEBUG) console.log("Getting Loogie tokenId: ", tokenId);
           const tokenURI = await readContracts.YourCollectible.tokenURI(tokenId);
           if (DEBUG) console.log("tokenURI: ", tokenURI);
@@ -293,7 +293,7 @@ function App(props) {
           <Link to="/">Home</Link>
         </Menu.Item>
         <Menu.Item key="/yourLoogies">
-          <Link to="/yourLoogies">MadLibs Game onChain</Link>
+          <Link to="/yourLoogies">Your MadLibs Game onChain</Link>
         </Menu.Item>
         <Menu.Item key="/howto">
           <Link to="/howto">How To Use MadLibs Game onChain Network</Link>

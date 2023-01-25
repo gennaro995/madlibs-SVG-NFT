@@ -6,6 +6,7 @@ import { ethers } from "ethers";
 import {Popup} from "../components";
 import { Transactor, Web3ModalSetup } from "../helpers";
 import {useUserProviderAndSigner} from "eth-hooks";
+import Item from "antd/lib/list/Item";
 
 function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplorer, totalSupply, DEBUG, address }) {
   const [allLoogies, setAllLoogies] = useState();
@@ -14,6 +15,8 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
   const perPage = 8;
   const [open, setOpen] = useState(false);
   const [inputText, setInputText] = useState([]); // '' is the initial state value
+  const [insertProp, setInsertProp] = useState(true); // '' is the initial state value
+  const [currentItem, setCurrentItem] = useState();
 
   const toggleProposal = () => {
     setOpen(!open);
@@ -25,7 +28,10 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
     setInputText(data);
   }
 
-
+  async function voteProposal(index) {
+    console.log("VOTO Proposta...")
+    await tx(writeContracts.YourCollectible.voteProposal(index));
+  }
   const addFields = () => {
     let object = {
       text: ''
@@ -33,30 +39,108 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
 
     setInputText([...inputText, object])
   }
-  const add = (nBlanks) =>{
-    console.log("numero di text:", nBlanks)
-    for (let i = 0; i<nBlanks; i++){
-        //Create an input type dynamically.
-        var element = document.createElement("textarea");
+  // function divs(item){
+  //   console.log("starting divs");
+  //   var parent = document.createElement("div");
+  //   parent.setAttribute("id", "proposals");
+  //   item.proposals.forEach((element, index) =>  {
+  //     let div = document.createElement("div")
+  //     div.className = "proposal_row"
+  //     //Proposer: ${element[2]},
+  //     let html = `
+  //       <span class="proposal_text">Proposal: ${replaceHashtag(element[0], item)},  votes: ${element[1]}   
+  //       <button type="primary" id="prop${index}"> Vote</button>     </span>
+  //       `;
+  //     div.innerHTML = html;
+  //     parent.appendChild(div);
+
+  //   })  
+  //   console.log(parent);
+  //   return parent;
+  // }
+  function replaceHashtag(array,item) {
+    let text = item.text;
+    for (let index = 0; index < array.length; index++) {
+      text = text.replace('#',array[index])
+    }
+    return text;
+  }
+  // function attachButton(item){
+  //   console.log("initialize button");
+  //   item.proposals.forEach((element, index) =>  {
+  //     document.getElementById("prop"+index).onclick = function(){voteProposal(index)};;
+  //   })  
+  //   console.log("end attachButton");
+  // }
+
+    function getPopupContent(){
+      console.log("insertProp", insertProp);
+      let content=[];
+      if (insertProp){
+          return (
+            <>
+              <div>
+              <form id="proposals">
+
+                 <label>
+                  <div>
+                    <div>
+                    <h3 style={{color: 'navy'}}>Insert your Proposals!</h3>
+                    <br />
+                    <h4 style={{color: 'navy'}}>Use comma to separate words </h4>
+                     Text:
+                    </div>
+                    <input type="text" style={{resize: 'none', background: 'red'}} rows="4" cols="50" value={inputText} onInput={e => {
+                      var proposals = (e.target.value).split(/(?:,| )+/);
+                      setInputText(proposals)
+                    }} />
+                  </div>
+
+                   <br />
+                   
+                 </label>
+            
+                 <Button style={{marginTop:8, marginBottom: 8}}
+                     type="primary"
+                     onClick={
+                     async () => {
+                     console.log("text: ", inputText);
+                     
+                     let txCur = await tx(writeContracts.YourCollectible.addProposal(inputText));
+                   }}
+               >Insert Proposal
+               </Button>
+               </form>
+              </div>
+             </>
+          )
+      }else{
+        currentItem.proposals.forEach((element, index) =>  {
+
+          content.push(
+          <div>
+                     <span>
+                      <label style={{marginRight:8}}>
+                        Proposer: 
+                      </label>
+                     <Address style={{marginLeft:8}}
+                       address={element[2]}
+                       ensProvider={mainnetProvider}
+                       blockExplorer={blockExplorer}
+                       fontSize={16}
+                       />
+                       <label style={{marginLeft:8}}>
+                       Proposal: {replaceHashtag(element[0], currentItem)}, votes: {element[1].toNumber()}
+                       </label>
+                       <Button style={{marginLeft:8}}type="primary" onClick={async function () { await voteProposal(index)}}>Vote</Button>
+                     </span>
+                   </div>);
+         
+         
+         });
+        return(content);
         
-        //Create Labels
-        var label = document.createElement("Label");
-        label.innerHTML = "New Label";     
-        
-        //Assign different attributes to the element.
-        element.setAttribute("value", "");
-        element.setAttribute("name", "Test Name");
-        element.setAttribute("style", "width:200px");
-        
-        label.setAttribute("style", "font-weight:normal");
-        
-        // 'foobar' is the div id, where new fields are to be added
-        var foo = document.getElementById("proposals");
-        
-        //Append the element in page (in span).
-        foo.appendChild(label);
-        foo.appendChild(element);
-        }
+      }
     }
 
   useEffect(() => {
@@ -74,16 +158,22 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
             if (DEBUG) console.log("tokenURI: ", tokenURI);
             const jsonManifestString = atob(tokenURI.substring(29));
 
+
+            const proposals = await readContracts.YourCollectible.getProposals(tokenId);
+            if (DEBUG) console.log("proposals: ", proposals);
+  
+
             const madLib = await readContracts.YourCollectible._madlibs(tokenId);
             const nBlanks = madLib[2];
             const closed = madLib[3];
+            const text = madLib[1]
 
 
             if (DEBUG) console.log("Getting nblanks: ", nBlanks);
 
             try {
               const jsonManifest = JSON.parse(jsonManifestString);
-              collectibleUpdate.push({ id: tokenId, closed:closed, uri: tokenURI,nBlanks: nBlanks, ...jsonManifest });
+              collectibleUpdate.push({ id: tokenId, closed:closed, uri: tokenURI,nBlanks: nBlanks,proposals: proposals,text: text, ...jsonManifest });
             } catch (e) {
               console.log(e);
             }
@@ -104,6 +194,10 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
         <Spin style={{ marginTop: 100 }} />
       ) : (
         <div>
+           {open && <Popup
+                 content={getPopupContent()}
+                 handleClose={toggleProposal}
+            />}
           <List
             grid={{
               gutter: 16,
@@ -129,15 +223,16 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
               const id = item.id.toNumber();
               const isClosed = item.closed;
               return (
+                
                 <List.Item key={id + "_" + item.uri + "_" + item.owner}>
-                  <Card
+                  <Card style={{marginLeft: 20}}
                     title={
                       <div>
                         <span style={{ fontSize: 18, marginRight: 8 }}>{item.name}</span>
                       </div>
                     }
                   >
-                    <img src={item.image} alt={"Loogie #" + id} width="200" />
+                    <img src={item.image} alt={"Loogie #" + id} />
                     <div>{item.description}</div>
                     <div>
                       <Address
@@ -149,7 +244,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                       <div>
                       {!isClosed ? (
                         <div>
-                          <Button type="primary" onClick={toggleProposal}>
+                          <Button style={{marginTop:8, marginBottom: 8}} type="primary" onClick={()=>{setInsertProp(true); toggleProposal();}}>
                             INSERT PROPOSAL
                           </Button>
                         </div>
@@ -159,49 +254,26 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                             </div>
                             )
                       }
-                        {open && <Popup
-                            content={<>
-                              <form id="proposals">
-                                <h3 style={{color: 'navy'}}>Insert your Proposals!</h3>
-                                <br />
-                                <h4 style={{color: 'navy'}}>Use comma to separate words </h4>
-                                 <br />
-                                <label>
-                                  Text: <span></span>
-                                  <input type="text" style={{resize: 'none', background: 'red'}} rows="4" cols="50" value={inputText} onInput={e => {
-                                    var proposals = (e.target.value).split(/(?:,| )+/);
-                                    setInputText(proposals)
-                                  }} />
-                                  <br />
-                                  
-                                </label>
-                                <br />
+                          <Button style={{marginTop:8, marginBottom: 8}} id={id} type="primary" onClick={
+                                async function(event){
+                                          setInsertProp(false);
+                                          setCurrentItem(item);
+                                          await toggleProposal(); 
+                                          //document.getElementById("popup_box").appendChild(divs(item));
+                                          //attachButton(item);
+                                      }
+                                  }>
+                                SHOW PROPOSALS
+                          </Button>
 
-                                <Button
-                                    type="primary"
-                                    onClick={
-                                    async () => {
-                                    console.log("text: ", inputText);
-                                    console.log("nBlanks: ", item.nBlanks);
-                                    
-                                    let txCur = await tx(writeContracts.YourCollectible.addProposal(inputText));
-                                  }}
-                              >Insert Proposal
-                              </Button>            <br />
-                              </form>
-                              <br />
-
-                            </>}
-                              handleClose={toggleProposal}
-                          />}
                       </div>
                       {!isClosed && item.owner.toLowerCase() == address.toLowerCase() ? (
                           <div>
-                            <Button type="primary" onClick={
+                            <Button style={{marginTop:8, marginBottom: 8}} type="primary" onClick={
                                   async () => {                                   
                                       let txClose = await tx(writeContracts.YourCollectible.closeMadLib(id));
                                   }
-                              }>CLOSE PROPOSAL
+                              }>CLOSE PROPOSALS
                               </Button>
                           </div>
                       ) :
