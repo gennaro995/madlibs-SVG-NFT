@@ -13,6 +13,7 @@ contract YourCollectible is ERC721Enumerable, Ownable {
   uint8 public _maxVotes = 99;
   MadLib[] public _madlibs;
    // all funds go to buidlguidl.eth
+   //prova branch dev2
   address payable public constant recipient = payable(0xa81a6a910FeD20374361B35C451a4a44F86CeD46);
   uint256 public price = 0.001 ether;
   /**
