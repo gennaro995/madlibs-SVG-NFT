@@ -59,6 +59,9 @@ library MadLibsUtility {
 
     string memory svg = string(abi.encodePacked(
       '<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
+        '<rect width="300" height="300" x="0" y="0" fill="#28D7B8"/>',
+        '<rect width="295" height="295" x="0" y="0" fill="#B828D7"/>',
+        '<rect width="290" height="290" x="0" y="0" fill="white"/>',
         renderToken(text),
       '</svg>'
     ));

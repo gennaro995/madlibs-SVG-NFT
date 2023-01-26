@@ -32,6 +32,7 @@ import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
 import { YourLoogies, Loogies } from "./views";
 import { useStaticJsonRPC } from "./hooks";
+import { useThemeSwitcher } from "react-css-theme-switcher";
 
 const { ethers } = require("ethers");
 /*
@@ -81,7 +82,7 @@ function App(props) {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState(''); // '' is the initial state value
-
+  const { currentTheme } = useThemeSwitcher();
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
@@ -327,14 +328,14 @@ function App(props) {
         {isOpen && <Popup
          content={<>
           <form>
-            <h3 style={{color: 'navy'}}>Insert your text!</h3>
-            <h4 style={{color: 'navy'}} >Use # to indicate the Mad Lib! 
+            <h3 style={{ color: currentTheme==="light" ? '#222222':'white'}}>Insert your text!</h3>
+            <h4 style={{ color: currentTheme==="light" ? '#222222':'white'}}>Use # to indicate the Mad Lib! 
             <br />
              Example: Hello #, how are you?</h4> 
             <br />
-            <label style={{color: 'navy'}}>
+            <label style={{ color: currentTheme==="light" ? '#222222':'white'}}>
               Text: <span></span>
-              <textarea style={{resize: 'none'}} rows="4" cols="50" value={inputText} onInput={e => setInputText(e.target.value)} />
+              <textarea style={{resize: 'none', background: currentTheme==="light" ? 'white':'#212121'}} rows="4" cols="50" value={inputText} onInput={e => setInputText(e.target.value)} />
               <br />
               
             </label>
@@ -348,6 +349,7 @@ function App(props) {
                 console.log("text: ", inputText);
                 console.log("nBlanks: ", nBlanks);
                 let txCur = await tx(writeContracts.YourCollectible.mintItem(inputText, nBlanks,{value: priceRightNow, gasLimit: 300000 }));
+                window.location.reload();
               }}
            >Mint
           </Button>            <br />

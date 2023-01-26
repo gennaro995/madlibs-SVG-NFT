@@ -7,6 +7,7 @@ import {Popup} from "../components";
 import { Transactor, Web3ModalSetup } from "../helpers";
 import {useUserProviderAndSigner} from "eth-hooks";
 import Item from "antd/lib/list/Item";
+import {useThemeSwitcher} from "react-css-theme-switcher";
 
 function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplorer, totalSupply, DEBUG, address }) {
   const [allLoogies, setAllLoogies] = useState();
@@ -17,6 +18,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
   const [inputText, setInputText] = useState([]); // '' is the initial state value
   const [insertProp, setInsertProp] = useState(true); // '' is the initial state value
   const [currentItem, setCurrentItem] = useState();
+  const { currentTheme } = useThemeSwitcher();
 
   const toggleProposal = () => {
     setOpen(!open);
@@ -31,6 +33,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
   async function voteProposal(index) {
     console.log("VOTO Proposta...")
     await tx(writeContracts.YourCollectible.voteProposal(index));
+    location.reload();
   }
   const addFields = () => {
     let object = {
@@ -85,12 +88,12 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                  <label>
                   <div>
                     <div>
-                    <h3 style={{color: 'navy'}}>Insert your Proposals!</h3>
+                    <h3 style={{ color: currentTheme==="light" ? '#222222':'white'}}>Insert your Proposals!</h3>
                     <br />
-                    <h4 style={{color: 'navy'}}>Use comma to separate words </h4>
+                    <h4 style={{ color: currentTheme==="light" ? '#222222':'white'}}>Use comma to separate words </h4>
                      Text:
                     </div>
-                    <input type="text" style={{resize: 'none', background: 'red'}} rows="4" cols="50" value={inputText} onInput={e => {
+                    <input type="text" style={{resize: 'none', background: currentTheme==="light" ? 'white':'#212121'}} rows="4" cols="50" value={inputText} onInput={e => {
                       var proposals = (e.target.value).split(/(?:,| )+/);
                       setInputText(proposals)
                     }} />
@@ -107,6 +110,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                      console.log("text: ", inputText);
                      
                      let txCur = await tx(writeContracts.YourCollectible.addProposal(inputText));
+                     location.reload();
                    }}
                >Insert Proposal
                </Button>
@@ -132,7 +136,11 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                        <label style={{marginLeft:8}}>
                        Proposal: {replaceHashtag(element[0], currentItem)}, votes: {element[1].toNumber()}
                        </label>
-                       <Button style={{marginLeft:8}}type="primary" onClick={async function () { await voteProposal(index)}}>Vote</Button>
+                       {!currentItem.closed ? (
+                        <Button style={{marginLeft:8}}type="primary" onClick={async function () { await voteProposal(index)}}>Vote</Button>
+                        ) : (<div>
+                       </div>)}
+                       
                      </span>
                    </div>);
          
@@ -259,8 +267,6 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                                           setInsertProp(false);
                                           setCurrentItem(item);
                                           await toggleProposal(); 
-                                          //document.getElementById("popup_box").appendChild(divs(item));
-                                          //attachButton(item);
                                       }
                                   }>
                                 SHOW PROPOSALS
@@ -272,8 +278,9 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                             <Button style={{marginTop:8, marginBottom: 8}} type="primary" onClick={
                                   async () => {                                   
                                       let txClose = await tx(writeContracts.YourCollectible.closeMadLib(id));
+                                      location.reload();
                                   }
-                              }>CLOSE PROPOSALS
+                              }>CLOSE MADLIB
                               </Button>
                           </div>
                       ) :
