@@ -349,7 +349,7 @@ function App(props) {
                 console.log("text: ", inputText);
                 console.log("nBlanks: ", nBlanks);
                 let txCur = await tx(writeContracts.YourCollectible.mintItem(inputText, nBlanks,{value: priceRightNow, gasLimit: 300000 }));
-                window.location.reload();
+                // window.location.reload();
               }}
            >Mint
           </Button>            <br />

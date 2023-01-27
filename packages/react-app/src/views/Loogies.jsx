@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Card, List, Spin } from "antd";
+import { Button, Card, List, Spin, Input} from "antd";
 import { Address } from "../components";
 import { ethers } from "ethers";
 import {Popup} from "../components";
+
 import { Transactor, Web3ModalSetup } from "../helpers";
 import {useUserProviderAndSigner} from "eth-hooks";
 import Item from "antd/lib/list/Item";
 import {useThemeSwitcher} from "react-css-theme-switcher";
 
-function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplorer, totalSupply, DEBUG, address }) {
+function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplorer, totalSupply, DEBUG, address}) {
   const [allLoogies, setAllLoogies] = useState();
   const [page, setPage] = useState(1);
   const [loadingLoogies, setLoadingLoogies] = useState(true);
@@ -18,22 +19,29 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
   const [inputText, setInputText] = useState([]); // '' is the initial state value
   const [insertProp, setInsertProp] = useState(true); // '' is the initial state value
   const [currentItem, setCurrentItem] = useState();
+  const [lastId, setLastId] = useState();
+  const [toUpdate, setToUpdate] = useState(false);
+
   const { currentTheme } = useThemeSwitcher();
+
 
   const toggleProposal = () => {
     setOpen(!open);
   }
-
-  const handleFormChange = (event, index) => {
-    let data = [...inputText];
-    data[index][event.target.name] = event.target.value;
-    setInputText(data);
-  }
+  // useEffect(() => {
+  //   function renderProposals() {
+  //     console.log(proposals);
+  //     {open && <Popup
+  //       content={getPopupContent()}
+  //       handleClose={toggleProposal}
+  //  />}    }
+  //   renderProposals();
+  // }, [proposals]);
 
   async function voteProposal(index) {
     console.log("VOTO Proposta...")
     await tx(writeContracts.YourCollectible.voteProposal(index));
-    location.reload();
+    // location.reload();
   }
   const addFields = () => {
     let object = {
@@ -82,43 +90,45 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
       if (insertProp){
           return (
             <>
-              <div>
+              <div style={{ marginLeft: "30%",marginRight: "25%"}}>
               <form id="proposals">
-
-                 <label>
                   <div>
                     <div>
                     <h3 style={{ color: currentTheme==="light" ? '#222222':'white'}}>Insert your Proposals!</h3>
+                    <div>
+                      <label style={{fontStyle: 'italic'}}>{currentItem?.text}</label>
+                    </div>
                     <br />
                     <h4 style={{ color: currentTheme==="light" ? '#222222':'white'}}>Use comma to separate words </h4>
-                     Text:
                     </div>
-                    <input type="text" style={{resize: 'none', background: currentTheme==="light" ? 'white':'#212121'}} rows="4" cols="50" value={inputText} onInput={e => {
+                    <Input placeholder="your proposals" type="text" style={{resize: 'none', background: currentTheme==="light" ? 'white':'#212121'}} rows="4" cols="50" value={inputText} onInput={e => {
                       var proposals = (e.target.value).split(/(?:,| )+/);
                       setInputText(proposals)
                     }} />
+                                 
+                   <Button style={{marginTop:16, marginBottom: 8}}
+                       type="primary"
+                       onClick={
+                       async () => {
+                       console.log("text: ", inputText);
+                       
+                       let txCur = await tx(writeContracts.YourCollectible.addProposal(inputText));
+                      //  location.reload();
+                        currentItem.proposals=await tx(readContracts.YourCollectible.getProposals(lastId));
+                     }}
+                 >Insert Proposal
+                 </Button>
                   </div>
 
-                   <br />
-                   
-                 </label>
-            
-                 <Button style={{marginTop:8, marginBottom: 8}}
-                     type="primary"
-                     onClick={
-                     async () => {
-                     console.log("text: ", inputText);
-                     
-                     let txCur = await tx(writeContracts.YourCollectible.addProposal(inputText));
-                     location.reload();
-                   }}
-               >Insert Proposal
-               </Button>
+       
                </form>
               </div>
              </>
           )
       }else{
+        if (currentItem.proposals.length===0){
+          return (<div> No proposals yet</div>)
+        }
         currentItem.proposals.forEach((element, index) =>  {
 
           content.push(
@@ -137,7 +147,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                        Proposal: {replaceHashtag(element[0], currentItem)}, votes: {element[1].toNumber()}
                        </label>
                        {!currentItem.closed ? (
-                        <Button style={{marginLeft:8}}type="primary" onClick={async function () { await voteProposal(index)}}>Vote</Button>
+                        <Button style={{marginLeft:8}}type="primary" onClick={async function () { await voteProposal(index);currentItem.proposals=await tx(readContracts.YourCollectible.getProposals(lastId))}}>Vote</Button>
                         ) : (<div>
                        </div>)}
                        
@@ -191,10 +201,11 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
         }
         setAllLoogies(collectibleUpdate);
         setLoadingLoogies(false);
+        setLastId(totalSupply-1);
       }
     };
     updateAllLoogies();
-  }, [readContracts.YourCollectible, (totalSupply || "0").toString(), page]);
+  }, [readContracts.YourCollectible, toUpdate,(totalSupply || "0").toString(), page]);
 
   return (
     <div style={{ width: "auto", margin: "auto", paddingBottom: 25, minHeight: 800 }}>
@@ -252,7 +263,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                       <div>
                       {!isClosed ? (
                         <div>
-                          <Button style={{marginTop:8, marginBottom: 8}} type="primary" onClick={()=>{setInsertProp(true); toggleProposal();}}>
+                          <Button style={{marginTop:8, marginBottom: 8}} type="primary" onClick={()=>{setInsertProp(true); toggleProposal(); setCurrentItem(item);}}>
                             INSERT PROPOSAL
                           </Button>
                         </div>
@@ -266,6 +277,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                                 async function(event){
                                           setInsertProp(false);
                                           setCurrentItem(item);
+                                          setToUpdate(false);
                                           await toggleProposal(); 
                                       }
                                   }>
@@ -278,7 +290,8 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                             <Button style={{marginTop:8, marginBottom: 8}} type="primary" onClick={
                                   async () => {                                   
                                       let txClose = await tx(writeContracts.YourCollectible.closeMadLib(id));
-                                      location.reload();
+                                      setToUpdate(true);
+                                      // location.reload();
                                   }
                               }>CLOSE MADLIB
                               </Button>
