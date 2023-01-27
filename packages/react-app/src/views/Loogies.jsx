@@ -27,6 +27,9 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
 
   const toggleProposal = () => {
     setOpen(!open);
+    if(!open){
+      setInputText('');
+    }
   }
   // useEffect(() => {
   //   function renderProposals() {
@@ -111,7 +114,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                        onClick={
                        async () => {
                        console.log("text: ", inputText);
-                       
+                       toggleProposal();
                        let txCur = await tx(writeContracts.YourCollectible.addProposal(inputText));
                       //  location.reload();
                         currentItem.proposals=await tx(readContracts.YourCollectible.getProposals(lastId));
@@ -205,7 +208,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
       }
     };
     updateAllLoogies();
-  }, [readContracts.YourCollectible, toUpdate,(totalSupply || "0").toString(), page]);
+  }, [readContracts.YourCollectible, toUpdate,currentItem,(totalSupply || "0").toString(), page]);
 
   return (
     <div style={{ width: "auto", margin: "auto", paddingBottom: 25, minHeight: 800 }}>

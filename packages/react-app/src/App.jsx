@@ -85,6 +85,9 @@ function App(props) {
   const { currentTheme } = useThemeSwitcher();
   const togglePopup = () => {
     setIsOpen(!isOpen);
+    if(!isOpen){
+      setInputText('');
+    }
   }
 
   // load all your providers
@@ -348,6 +351,7 @@ function App(props) {
                 const nBlanks =  (inputText.match(/#/g)||[]).length;
                 console.log("text: ", inputText);
                 console.log("nBlanks: ", nBlanks);
+                togglePopup();
                 let txCur = await tx(writeContracts.YourCollectible.mintItem(inputText, nBlanks,{value: priceRightNow, gasLimit: 300000 }));
                 // window.location.reload();
               }}
