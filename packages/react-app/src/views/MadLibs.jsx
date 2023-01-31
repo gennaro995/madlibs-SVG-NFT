@@ -99,7 +99,7 @@ function MadLibs({ readContracts,writeContracts,tx,contractName, mainnetProvider
                       <label style={{fontStyle: 'italic'}}>{currentItem?.text}</label>
                     </div>
                     <br />
-                    <h4 style={{ color: currentTheme==="light" ? '#222222':'white'}}>Use comma to separate words </h4>
+                    <h4 style={{ color: currentTheme==="light" ? '#222222':'white'}}>Use comma to separate words ({currentItem?.nBlanks})</h4>
                     </div>
                     <Input placeholder="your proposals" type="text" style={{resize: 'none', background: currentTheme==="light" ? 'white':'#212121'}} rows="4" cols="50" value={inputText} onInput={e => {
                       var proposals = (e.target.value).split(/(?:,| )+/);
