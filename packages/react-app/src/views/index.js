@@ -1,2 +1,2 @@
-export { default as YourLoogies } from "./YourLoogies";
-export { default as Loogies } from "./Loogies";
+export { default as YourMadLibs } from "./YourMadLibs";
+export { default as MadLibs } from "./MadLibs";

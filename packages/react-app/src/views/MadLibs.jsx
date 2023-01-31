@@ -5,21 +5,18 @@ import { Address } from "../components";
 import { ethers } from "ethers";
 import {Popup} from "../components";
 
-import { Transactor, Web3ModalSetup } from "../helpers";
-import {useUserProviderAndSigner} from "eth-hooks";
-import Item from "antd/lib/list/Item";
 import {useThemeSwitcher} from "react-css-theme-switcher";
+import { id } from "ethers/lib/utils";
 
-function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplorer, totalSupply, DEBUG, address}) {
-  const [allLoogies, setAllLoogies] = useState();
+function MadLibs({ readContracts,writeContracts,tx,contractName, mainnetProvider, blockExplorer, totalSupply, DEBUG, address}) {
+  const [allMadLibs, setAllMadLibs] = useState();
   const [page, setPage] = useState(1);
-  const [loadingLoogies, setLoadingLoogies] = useState(true);
+  const [loadingMadLibs, setLoadingMadLibs] = useState(true);
   const perPage = 8;
   const [open, setOpen] = useState(false);
   const [inputText, setInputText] = useState([]); // '' is the initial state value
   const [insertProp, setInsertProp] = useState(true); // '' is the initial state value
   const [currentItem, setCurrentItem] = useState();
-  const [lastId, setLastId] = useState();
   const [toUpdate, setToUpdate] = useState(false);
 
   const { currentTheme } = useThemeSwitcher();
@@ -43,7 +40,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
 
   async function voteProposal(index) {
     console.log("VOTO Proposta...")
-    await tx(writeContracts.YourCollectible.voteProposal(index));
+    await tx(writeContracts[contractName].voteProposal(index));
     // location.reload();
   }
   const addFields = () => {
@@ -115,9 +112,9 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                        async () => {
                        console.log("text: ", inputText);
                        toggleProposal();
-                       let txCur = await tx(writeContracts.YourCollectible.addProposal(inputText));
+                       let txCur = await tx(writeContracts[contractName].addProposal(inputText));
                       //  location.reload();
-                        currentItem.proposals=await tx(readContracts.YourCollectible.getProposals(lastId));
+                        //currentItem.proposals=await tx(readContracts[contractName].getProposals(lastId));
                      }}
                  >Insert Proposal
                  </Button>
@@ -135,7 +132,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
         currentItem.proposals.forEach((element, index) =>  {
 
           content.push(
-          <div>
+          <div key={index} id={'proposal'+index}>
                      <span>
                       <label style={{marginRight:8}}>
                         Proposer: 
@@ -150,7 +147,9 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                        Proposal: {replaceHashtag(element[0], currentItem)}, votes: {element[1].toNumber()}
                        </label>
                        {!currentItem.closed ? (
-                        <Button style={{marginLeft:8}}type="primary" onClick={async function () { await voteProposal(index);currentItem.proposals=await tx(readContracts.YourCollectible.getProposals(lastId))}}>Vote</Button>
+                        <Button style={{marginLeft:8}}type="primary" onClick={async function () { 
+                          await voteProposal(index);
+                          currentItem.proposals=await tx(readContracts[contractName].getProposals(currentItem.id));}}>Vote</Button>
                         ) : (<div>
                        </div>)}
                        
@@ -166,25 +165,25 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
 
   useEffect(() => {
     const updateAllLoogies = async () => {
-      if (readContracts.YourCollectible && totalSupply) {
-        setLoadingLoogies(true);
+      if (readContracts[contractName] && totalSupply) {
+        setLoadingMadLibs(true);
         const collectibleUpdate = [];
         let startIndex = totalSupply - 1 - perPage * (page - 1);
         for (let tokenIndex = startIndex; tokenIndex > startIndex - perPage && tokenIndex >= 0; tokenIndex--) {
           try {
             if (DEBUG) console.log("Getting token index", tokenIndex);
-            const tokenId = await readContracts.YourCollectible.tokenByIndex(tokenIndex);
+            const tokenId = await readContracts[contractName].tokenByIndex(tokenIndex);
             if (DEBUG) console.log("Getting Loogie tokenId: ", tokenId);
-            const tokenURI = await readContracts.YourCollectible.tokenURI(tokenId);
+            const tokenURI = await readContracts[contractName].tokenURI(tokenId);
             if (DEBUG) console.log("tokenURI: ", tokenURI);
             const jsonManifestString = atob(tokenURI.substring(29));
 
 
-            const proposals = await readContracts.YourCollectible.getProposals(tokenId);
+            const proposals = await readContracts[contractName].getProposals(tokenId);
             if (DEBUG) console.log("proposals: ", proposals);
   
 
-            const madLib = await readContracts.YourCollectible._madlibs(tokenId);
+            const madLib = await readContracts[contractName]._madlibs(tokenId);
             const nBlanks = madLib[2];
             const closed = madLib[3];
             const text = madLib[1]
@@ -202,13 +201,21 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
             console.log(e);
           }
         }
-        setAllLoogies(collectibleUpdate);
-        setLoadingLoogies(false);
-        setLastId(totalSupply-1);
+        setAllMadLibs(collectibleUpdate);
+        setLoadingMadLibs(false);
       }
     };
     updateAllLoogies();
-  }, [readContracts.YourCollectible, toUpdate,currentItem,(totalSupply || "0").toString(), page]);
+  }, [readContracts[contractName], toUpdate,currentItem,(totalSupply || "0").toString(), page]);
+
+  useEffect(()=>{
+    const updateProposals = async ()=> {
+      if(readContracts && readContracts[contractName] && currentItem){
+        currentItem.proposals=await tx(readContracts[contractName].getProposals(currentItem.id));
+      }
+    }
+    updateProposals();
+  },[currentItem]);
 
   return (
     <div style={{ width: "auto", margin: "auto", paddingBottom: 25, minHeight: 800 }}>
@@ -239,8 +246,8 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
               },
               showTotal: (total, range) => `${range[0]}-${range[1]} of ${totalSupply} items`,
             }}
-            loading={loadingLoogies}
-            dataSource={allLoogies}
+            loading={loadingMadLibs}
+            dataSource={allMadLibs}
             renderItem={item => {
               const id = item.id.toNumber();
               const isClosed = item.closed;
@@ -279,8 +286,10 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                           <Button style={{marginTop:8, marginBottom: 8}} id={id} type="primary" onClick={
                                 async function(event){
                                           setInsertProp(false);
-                                          setCurrentItem(item);
+                                          item.proposals = await tx(readContracts[contractName].getProposals(item.id));
+                                          setCurrentItem(item);        
                                           setToUpdate(false);
+
                                           await toggleProposal(); 
                                       }
                                   }>
@@ -292,7 +301,7 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
                           <div>
                             <Button style={{marginTop:8, marginBottom: 8}} type="primary" onClick={
                                   async () => {                                   
-                                      let txClose = await tx(writeContracts.YourCollectible.closeMadLib(id));
+                                      let txClose = await tx(writeContracts[contractName].closeMadLib(id));
                                       setToUpdate(true);
                                       // location.reload();
                                   }
@@ -321,4 +330,4 @@ function Loogies({ readContracts,writeContracts,tx, mainnetProvider, blockExplor
   );
 }
 
-export default Loogies;
+export default MadLibs;

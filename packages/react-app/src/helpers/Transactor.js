@@ -88,11 +88,13 @@ export default function Transactor(providerOrSigner, gasPrice, etherscan) {
             };
           });
         } else {
-          notification.info({
-            message: "Local Transaction Sent",
-            description: result.hash,
-            placement: "bottomRight",
-          });
+          if(result.hash){
+            notification.info({
+              message: "Local Transaction Sent",
+              description: result.hash,
+              placement: "bottomRight",
+            });
+          }
           // on most networks BlockNative will update a transaction handler,
           // but locally we will set an interval to listen...
           if (callback) {

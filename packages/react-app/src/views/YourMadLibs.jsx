@@ -10,8 +10,8 @@ function Home({
   readContracts,
   writeContracts,
   priceToMint,
-  yourCollectibles,
   tx,
+  contractName,
   mainnetProvider,
   blockExplorer,
   transferToAddresses,
@@ -22,14 +22,61 @@ function Home({
 
   const [open, setOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState();
+  const [yourCollectibles, setYourCollectibles] = useState();
+  const DEBUG = true;
+  useEffect(()=>{
+    const updateProposals = async ()=> {
+      if(readContracts && readContracts[contractName] && currentItem){
+        currentItem.proposals=await tx(readContracts[contractName].getProposals(currentItem.id));
+      }
+    }
+    updateProposals();
+  },[currentItem])
 
-  async function toggleProposal () {
+  useEffect(() => {
+    const updateYourCollectibles = async () => {
+      //setLoadingLoogies(true);
+      const collectibleUpdate = [];
+      //let startIndex = totalSupply - 1 - perPage * (page - 1);
+      for (let tokenIndex = 0; tokenIndex < totalSupply; tokenIndex++) {
+      //for (let tokenIndex = startIndex; tokenIndex > startIndex - perPage && tokenIndex >= 0; tokenIndex--) {
+        try {
+          if (DEBUG) console.log("Getting token index", tokenIndex);
+          const tokenId = await readContracts[contractName].tokenOfOwnerByIndex(address, tokenIndex);
+          if (DEBUG) console.log("Getting Loogie tokenId: ", tokenId);
+          const tokenURI = await readContracts[contractName].tokenURI(tokenId);
+          if (DEBUG) console.log("tokenURI: ", tokenURI);
+          const jsonManifestString = atob(tokenURI.substring(29));
+
+          const proposals = await readContracts[contractName].getProposals(tokenId);
+          if (DEBUG) console.log("proposals: ", proposals);
+
+          const text = await readContracts[contractName]._madlibs(tokenId);
+
+          if (DEBUG) console.log("text: ", text[1]);
+
+          try {
+            const jsonManifest = JSON.parse(jsonManifestString);
+            collectibleUpdate.push({ id: tokenId, uri: tokenURI,closed: text[3], owner: address,proposals: proposals, text: text[1], ...jsonManifest });
+          } catch (e) {
+            console.log(e);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      setYourCollectibles(collectibleUpdate.reverse());
+    };
+    updateYourCollectibles();
+  }, [currentItem]);
+
+  const toggleProposal = () => {
     setOpen(!open);
   }
 
   async function voteProposal(index) {
     console.log("VOTO Proposta...")
-    await tx(writeContracts.YourCollectible.voteProposal(index));
+    await tx(writeContracts[contractName].voteProposal(index));
   }
   function replaceHashtag(array, item) {
     let text = item.text;
@@ -44,7 +91,7 @@ function Home({
       currentItem.proposals.forEach((element, index) =>  {
 
         content.push(
-        <div>
+          <div key={index} id={'proposal'+index}>
                    <span>
                     <label style={{marginRight:8}}>
                       Proposer: 
@@ -58,7 +105,9 @@ function Home({
                      <label style={{marginLeft:8}}>
                      Proposal: {replaceHashtag(element[0], currentItem)}, votes: {element[1].toNumber()}
                      </label>
-                     <Button style={{marginLeft:8, marginBottom:2}}type="primary" onClick={async function () { await voteProposal(index)}}>Vote</Button>
+                     <Button style={{marginLeft:8, marginBottom:2}}type="primary" onClick={async function () {
+                       await voteProposal(index);
+                       currentItem.proposals=await tx(readContracts[contractName].getProposals(currentItem.id));}}>Vote</Button>
                    </span>
                  </div>);
        
@@ -125,7 +174,9 @@ function Home({
                   <img src={item.image} alt={"Loogie #" + id} />
                   <div>{item.description}</div>
                   <Button id={id} type="primary" onClick={async function(event){
+                                item.proposals = await tx(readContracts[contractName].getProposals(item.id));
                                 setCurrentItem(item);
+                          
                                 await toggleProposal(); 
                                 // document.getElementById("popup_box").appendChild(divs());
                                 // attachButton();
@@ -139,9 +190,9 @@ function Home({
                           <div>
                             <Button style={{marginTop:8, marginBottom: 8}} type="primary" onClick={
                                   async () => {                                   
-                                      let txClose = await tx(writeContracts.YourCollectible.closeMadLib(id));
+                                      let txClose = await tx(writeContracts[contractName].closeMadLib(id));
                                   }
-                              }>CLOSE PROPOSALS
+                              }>CLOSE MADLIB
                               </Button>
                           </div>
                       ) :
@@ -163,7 +214,7 @@ function Home({
                     />
                     <Button
                       onClick={() => {
-                        tx(writeContracts.YourCollectible.transferFrom(address, transferToAddresses[id], id));
+                        tx(writeContracts[contractName].transferFrom(address, transferToAddresses[id], id));
                       }}
                     >
                       Transfer

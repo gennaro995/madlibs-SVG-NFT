@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import { MadLibsUtility } from "./MadLibsUtility.sol";
 import "hardhat/console.sol";
 
-contract YourCollectible is ERC721Enumerable, Ownable {
+contract MadLibs is ERC721Enumerable, Ownable {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
   uint8 public _maxVotes = 99;

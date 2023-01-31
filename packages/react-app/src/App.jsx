@@ -30,7 +30,7 @@ import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { YourLoogies, Loogies } from "./views";
+import { YourMadLibs, MadLibs } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 
@@ -60,7 +60,7 @@ const targetNetwork = NETWORKS.localhost; // <------- select your target fronten
 // 😬 Sorry for all the console logging
 const DEBUG = true;
 const NETWORKCHECK = true;
-
+const contractName = 'MadLibs'
 // 🛰 providers
 if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
 
@@ -161,60 +161,22 @@ function App(props) {
     console.log(`⛓ A new mainnet block is here: ${mainnetProvider._lastBlockNumber}`);
   });
 
-  const priceToMint = useContractReader(readContracts, "YourCollectible", "price");
+  const priceToMint = useContractReader(readContracts, contractName, "price");
   if (DEBUG) console.log("🤗 priceToMint:", priceToMint);
 
-  const totalSupply = useContractReader(readContracts, "YourCollectible", "totalSupply");
+  const totalSupply = useContractReader(readContracts, contractName, "totalSupply");
   if (DEBUG) console.log("🤗 totalSupply:", totalSupply);
   const loogiesLeft = 1000000000000000;
 
   // keep track of a variable from the contract in the local React state:
-  const balance = useContractReader(readContracts, "YourCollectible", "balanceOf", [address]);
+  const balance = useContractReader(readContracts, contractName, "balanceOf", [address]);
   if (DEBUG) console.log("🤗 address: ", address, " balance:", balance);
 
   //
   // 🧠 This effect will update yourCollectibles by polling when your balance changes
   //
   const yourBalance = balance && balance.toNumber && balance.toNumber();
-  const [yourCollectibles, setYourCollectibles] = useState();
   const [transferToAddresses, setTransferToAddresses] = useState({});
-
-  useEffect(() => {
-    const updateYourCollectibles = async () => {
-      //setLoadingLoogies(true);
-      const collectibleUpdate = [];
-      //let startIndex = totalSupply - 1 - perPage * (page - 1);
-      for (let tokenIndex = 0; tokenIndex < totalSupply; tokenIndex++) {
-      //for (let tokenIndex = startIndex; tokenIndex > startIndex - perPage && tokenIndex >= 0; tokenIndex--) {
-        try {
-          if (DEBUG) console.log("Getting token index", tokenIndex);
-          const tokenId = await readContracts.YourCollectible.tokenOfOwnerByIndex(address, tokenIndex);
-          if (DEBUG) console.log("Getting Loogie tokenId: ", tokenId);
-          const tokenURI = await readContracts.YourCollectible.tokenURI(tokenId);
-          if (DEBUG) console.log("tokenURI: ", tokenURI);
-          const jsonManifestString = atob(tokenURI.substring(29));
-
-          const proposals = await readContracts.YourCollectible.getProposals(tokenId);
-          if (DEBUG) console.log("proposals: ", proposals);
-
-          const text = await readContracts.YourCollectible._madlibs(tokenId);
-
-          if (DEBUG) console.log("text: ", text[1]);
-
-          try {
-            const jsonManifest = JSON.parse(jsonManifestString);
-            collectibleUpdate.push({ id: tokenId, uri: tokenURI, owner: address,proposals: proposals, text: text[1], ...jsonManifest });
-          } catch (e) {
-            console.log(e);
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      }
-      setYourCollectibles(collectibleUpdate.reverse());
-    };
-    updateYourCollectibles();
-  }, [address, yourBalance]);
 
   //
   // 🧫 DEBUG 👨🏻‍🔬
@@ -296,8 +258,8 @@ function App(props) {
         <Menu.Item key="/">
           <Link to="/">Home</Link>
         </Menu.Item>
-        <Menu.Item key="/yourLoogies">
-          <Link to="/yourLoogies">Your MadLibs Game onChain</Link>
+        <Menu.Item key="/yourMadLibs" >
+          <Link to="/yourMadLibs">Your MadLibs Game onChain</Link>
         </Menu.Item>
         <Menu.Item key="/howto">
           <Link to="/howto">How To Use MadLibs Game onChain Network</Link>
@@ -347,12 +309,12 @@ function App(props) {
                 type="primary"
                 onClick={
                 async () => {
-                const priceRightNow = await readContracts.YourCollectible.price();
+                const priceRightNow = await readContracts[contractName].price();
                 const nBlanks =  (inputText.match(/#/g)||[]).length;
                 console.log("text: ", inputText);
                 console.log("nBlanks: ", nBlanks);
                 togglePopup();
-                let txCur = await tx(writeContracts.YourCollectible.mintItem(inputText, nBlanks,{value: priceRightNow, gasLimit: 300000 }));
+                let txCur = await tx(writeContracts[contractName].mintItem(inputText, nBlanks,{value: priceRightNow, gasLimit: 300000 }));
                 // window.location.reload();
               }}
            >Mint
@@ -370,10 +332,11 @@ function App(props) {
 
       <Switch>
         <Route exact path="/">
-          <Loogies
+          <MadLibs
             readContracts={readContracts}
             writeContracts={writeContracts}
             tx={tx}
+            contractName={contractName}
             mainnetProvider={mainnetProvider}
             blockExplorer={blockExplorer}
             totalSupply={totalSupply}
@@ -381,13 +344,13 @@ function App(props) {
             address={address}
           />
         </Route>
-        <Route exact path="/yourLoogies">
-          <YourLoogies
+        <Route exact path="/yourMadLibs">
+          <YourMadLibs
             readContracts={readContracts}
             writeContracts={writeContracts}
             priceToMint={priceToMint}
-            yourCollectibles={yourCollectibles}
             tx={tx}
+            contractName={contractName}
             mainnetProvider={mainnetProvider}
             blockExplorer={blockExplorer}
             transferToAddresses={transferToAddresses}
@@ -421,10 +384,10 @@ function App(props) {
         </Route>
         <Route exact path="/debug">
           <div style={{ padding: 32 }}>
-            <Address value={readContracts && readContracts.YourCollectible && readContracts.YourCollectible.address} />
+            <Address value={readContracts && readContracts[contractName] && readContracts[contractName].address} />
           </div>
           <Contract
-            name="YourCollectible"
+            name={contractName}
             price={price}
             signer={userSigner}
             provider={localProvider}

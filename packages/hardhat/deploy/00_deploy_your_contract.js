@@ -17,7 +17,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     log: true,
   });
 
-   await deploy("YourCollectible", { //0x5FbDB2315678afecb367f032d93F642f64180aa3
+   await deploy("MadLibs", { //0x5FbDB2315678afecb367f032d93F642f64180aa3
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     // args: [ "Hello", ethers.utils.parseEther("1.5") ],
@@ -26,7 +26,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
       MadLibsUtility: lib.address,
     }
   });
-    const yourContract = await ethers.getContractAt('YourCollectible', deployer) //<-- if you want to instantiate a version of a contract at a specific address!
+    const yourContract = await ethers.getContractAt('MadLibs', deployer) //<-- if you want to instantiate a version of a contract at a specific address!
 
   // const YourCollectible = await hre.ethers.getContractFactory("YourCollectible", 
   //   { signer: deployer,
@@ -74,4 +74,4 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   // });
   
 };
-module.exports.tags = ["YourCollectible"];
+module.exports.tags = ["MadLibs"];
