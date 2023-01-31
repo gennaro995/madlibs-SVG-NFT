@@ -72,13 +72,36 @@ library MadLibsUtility {
   function renderToken(string memory text) internal pure returns (string memory) {
 
     return string(abi.encodePacked(
-      '<defs>',
-      //'<text x="0" y="15" fill="white">I love SVG! Targa:', targa[id] ,'</text>'
-      '<path id="path1" d="M5,30 H295 M5,60 H295 M5,90 H295 M5,120 H295 M5,150 H295 M5,180 H295"></path>',
-      '</defs>',
-      '<use xlink:href="#path1" x="0" y="35" />',
-      ' <text transform="translate(0,35)" fill="black" font-size="13">',
-      '  <textPath xlink:href="#path1">',text,'</textPath>',
-      ' </text>'    ));
+      '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">   <rect width="300" height="300" x="0" y="0" fill="#28D7B8"/><rect width="295" height="295" x="0" y="0" fill="#B828D7"/><rect width="290" height="290" x="0" y="0" fill="white"/>   <foreignObject x="0cm" y="0cm" width="290" height="300">     <p xmlns="http://www.w3.org/1999/xhtml"    style="font-size:12;">',text,'</p>   </foreignObject> </svg>'));
   }
+  function strlen(string memory s) public pure returns (uint256) {
+        uint256 len;
+        uint256 i = 0;
+        uint256 bytelength = bytes(s).length;
+        for (len = 0; i < bytelength; len++) {
+            bytes1 b = bytes(s)[i];
+            if (b < 0x80) {
+                i += 1;
+            } else if (b < 0xE0) {
+                i += 2;
+            } else if (b < 0xF0) {
+                i += 3;
+            } else if (b < 0xF8) {
+                i += 4;
+            } else if (b < 0xFC) {
+                i += 5;
+            } else {
+                i += 6;
+            }
+        }
+        return len;
+    }
+  function checkLenArray(string[] memory array, uint limit) public pure returns (bool) {
+        for (uint i = 0; i < array.length; i++) {
+          if(strlen(array[i])> limit){
+            return false;
+          }
+        }
+        return true;
+    }
 }

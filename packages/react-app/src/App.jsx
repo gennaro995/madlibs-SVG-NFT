@@ -314,7 +314,7 @@ function App(props) {
                 console.log("text: ", inputText);
                 console.log("nBlanks: ", nBlanks);
                 togglePopup();
-                let txCur = await tx(writeContracts[contractName].mintItem(inputText, nBlanks,{value: priceRightNow, gasLimit: 300000 }));
+                let txCur = await tx(writeContracts[contractName].mintItem(inputText, nBlanks,{value: priceRightNow}));
                 // window.location.reload();
               }}
            >Mint

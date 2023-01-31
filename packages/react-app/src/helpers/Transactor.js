@@ -142,10 +142,10 @@ export default function Transactor(providerOrSigner, gasPrice, etherscan) {
         } catch (e) {
           //ignore
         }
-
+        const jsonMessage = JSON.parse(message);
         notification.error({
           message: "Transaction Error",
-          description: message,
+          description: jsonMessage.error.reason,
         });
         if (callback && typeof callback === "function") {
           callback(e);
