@@ -134,17 +134,25 @@ function MadLibs({ readContracts,writeContracts,tx,contractName, mainnetProvider
           content.push(
           <div key={index} id={'proposal'+index}>
                      <span>
+                     <b>
                       <label style={{marginRight:8}}>
                         Proposer: 
                       </label>
+                      </b>
                      <Address style={{marginLeft:8}}
                        address={element[2]}
                        ensProvider={mainnetProvider}
                        blockExplorer={blockExplorer}
                        fontSize={16}
                        />
+                       <div>
+                       <b>
+                        <label style={{marginLeft:8}}>
+                        Proposal:
+                        </label>
+                       </b>
                        <label style={{marginLeft:8}}>
-                       Proposal: {replaceHashtag(element[0], currentItem)}, votes: {element[1].toNumber()}
+                        {replaceHashtag(element[0], currentItem)}, votes: {element[1].toNumber()}
                        </label>
                        {!currentItem.closed ? (
                         <Button style={{marginLeft:8}}type="primary" onClick={async function () { 
@@ -152,7 +160,7 @@ function MadLibs({ readContracts,writeContracts,tx,contractName, mainnetProvider
                           currentItem.proposals=await tx(readContracts[contractName].getProposals(currentItem.id));}}>Vote</Button>
                         ) : (<div>
                        </div>)}
-                       
+                       </div>
                      </span>
                    </div>);
          
