@@ -11,6 +11,7 @@ contract MadLibs is ERC721Enumerable, Ownable {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
   uint8 public _maxVotes = 99;
+  uint8 public _maxProposal = 1;
   MadLib[] public _madlibs;
    // all funds go to buidlguidl.eth
    //prova branch dev2

@@ -33,7 +33,9 @@ import { Transactor, Web3ModalSetup } from "./helpers";
 import { YourMadLibs, MadLibs } from "./views";
 import { useStaticJsonRPC } from "./hooks";
 import { useThemeSwitcher } from "react-css-theme-switcher";
-
+import homepng from './images/home.png';
+import mintpng from './images/mint.png';
+import proposalpng from './images/proposal.png';
 const { ethers } = require("ethers");
 /*
     Welcome to 🏗 scaffold-eth !
@@ -360,27 +362,21 @@ function App(props) {
           />
         </Route>
         <Route exact path="/howto">
-          <div style={{ fontSize: 18, width: 820, margin: "auto" }}>
-            <h2 style={{ fontSize: "2em", fontWeight: "bold" }}>How to add Heterochromic  Ethereum network on MetaMask</h2>
-            <div style={{ textAlign: "left", marginLeft: 50, marginBottom: 50 }}>
-              <ul>
-                <li>
-                  Go to <a target="_blank" href="https://chainid.link/?network=optimism">https://chainid.link/?network=optimism</a>
-                </li>
-                <li>
-                  Click on <strong>connect</strong> to add the <strong>Heterochromic  Ethereum</strong> network in <strong>MetaMask</strong>.
-                </li>
-              </ul>
-            </div>
-            <h2 style={{ fontSize: "2em", fontWeight: "bold" }}>How to add funds to your wallet on Heterochromic  Ethereum network</h2>
-            <div style={{ textAlign: "left", marginLeft: 50, marginBottom: 100 }}>
-              <ul>
-                <li><a href="https://portr.xyz/" target="_blank">The Teleporter</a>: the cheaper option, but with a 0.05 ether limit per transfer.</li>
-                <li><a href="https://gateway.optimism.io/" target="_blank">The Optimism Gateway</a>: larger transfers and cost more.</li>
-                <li><a href="https://app.hop.exchange/send?token=ETH&sourceNetwork=ethereum&destNetwork=optimism" target="_blank">Hop.Exchange</a>: where you can send from/to Ethereum mainnet and other L2 networks.</li>
-              </ul>
-            </div>
-          </div>
+        
+        <div style={{ fontSize: 15, width: 820, margin: "auto" }}>
+          <h2 style={{ fontSize: "2em", fontWeight: "bold" }}>How to add Mint a NFT on MadLibs Game on Chain</h2>
+          <img src={mintpng} alt="How To Mint" width="500" height="500"></img>
+        </div>
+        <div>&nbsp;</div>
+        <div style={{ fontSize: 15, width: 820, margin: "auto" }}>
+          <h2 style={{ fontSize: "2em", fontWeight: "bold" }}>How to use HomePage in MadLibs Game on Chain</h2>
+          <img src={homepng} alt="How To Home" width="500" height="400"></img>
+        </div>
+        <div>&nbsp;</div>
+        <div style={{ fontSize: 15, width: 820, margin: "auto" }}>
+          <h2 style={{ fontSize: "2em", fontWeight: "bold" }}>How to vote a proposal on MadLibs Game on Chain</h2>
+          <img src={proposalpng} alt="How To proposal" width="500" height="500"></img>
+        </div>          
         </Route>
         <Route exact path="/debug">
           <div style={{ padding: 32 }}>
