@@ -625,3 +625,12 @@ packages/subgraph/config/config.json
 packages/subgraph/src/mapping.ts
 packages/subgraph/src/schema.graphql
 packages/subgraph/src/subgraph.template.yaml
+packages/hardhat/deployments/goerli/MadLibs.json
+packages/hardhat/deployments/goerli/MadLibsUtility.json
+packages/hardhat/deployments/goerli/solcInputs/2bb6915b5c859ea0b0718aabd3793183.json
+packages/hardhat/deployments/localhost/solcInputs/2bb6915b5c859ea0b0718aabd3793183.json
+packages/hardhat/deployments/localhost/solcInputs/5ec186479297d82e5228818e1d6108a6.json
+packages/hardhat/deployments/localhost/solcInputs/9dce8c64a21d9420eb71b4d858b86b06.json
+packages/hardhat/deployments/localhost/solcInputs/a9daaf19b0ab2ba3944925aed28a9403.json
+packages/subgraph/abis/goerli_MadLibs.json
+packages/subgraph/abis/goerli_MadLibsUtility.json
