@@ -23,15 +23,19 @@ import {
   ThemeSwitch,
   NetworkDisplay,
   FaucetHint,
+  Popup
 } from "./components";
 import { NETWORKS, ALCHEMY_KEY } from "./constants";
 import externalContracts from "./contracts/external_contracts";
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
 import { Transactor, Web3ModalSetup } from "./helpers";
-import { YourLoogies, Loogies } from "./views";
+import { YourMadLibs, MadLibs } from "./views";
 import { useStaticJsonRPC } from "./hooks";
-
+import { useThemeSwitcher } from "react-css-theme-switcher";
+import homepng from './images/home.png';
+import mintpng from './images/mint.png';
+import proposalpng from './images/proposal.png';
 const { ethers } = require("ethers");
 /*
     Welcome to 🏗 scaffold-eth !
@@ -53,12 +57,12 @@ const { ethers } = require("ethers");
 */
 
 /// 📡 What chain are your contracts deployed to?
-const targetNetwork = NETWORKS.goerli; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const targetNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
 const DEBUG = true;
 const NETWORKCHECK = true;
-
+const contractName = 'MadLibs'
 // 🛰 providers
 if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
 
@@ -78,6 +82,15 @@ function App(props) {
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [inputText, setInputText] = useState(''); // '' is the initial state value
+  const { currentTheme } = useThemeSwitcher();
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+    if(!isOpen){
+      setInputText('');
+    }
+  }
 
   // load all your providers
   const localProvider = useStaticJsonRPC([
@@ -150,50 +163,22 @@ function App(props) {
     console.log(`⛓ A new mainnet block is here: ${mainnetProvider._lastBlockNumber}`);
   });
 
-  const priceToMint = useContractReader(readContracts, "YourCollectible", "price");
+  const priceToMint = useContractReader(readContracts, contractName, "price");
   if (DEBUG) console.log("🤗 priceToMint:", priceToMint);
 
-  const totalSupply = useContractReader(readContracts, "YourCollectible", "totalSupply");
+  const totalSupply = useContractReader(readContracts, contractName, "totalSupply");
   if (DEBUG) console.log("🤗 totalSupply:", totalSupply);
   const loogiesLeft = 1000000000000000;
 
   // keep track of a variable from the contract in the local React state:
-  const balance = useContractReader(readContracts, "YourCollectible", "balanceOf", [address]);
+  const balance = useContractReader(readContracts, contractName, "balanceOf", [address]);
   if (DEBUG) console.log("🤗 address: ", address, " balance:", balance);
 
   //
   // 🧠 This effect will update yourCollectibles by polling when your balance changes
   //
   const yourBalance = balance && balance.toNumber && balance.toNumber();
-  const [yourCollectibles, setYourCollectibles] = useState();
   const [transferToAddresses, setTransferToAddresses] = useState({});
-
-  useEffect(() => {
-    const updateYourCollectibles = async () => {
-      const collectibleUpdate = [];
-      for (let tokenIndex = 0; tokenIndex < balance; tokenIndex++) {
-        try {
-          if (DEBUG) console.log("Getting token index", tokenIndex);
-          const tokenId = await readContracts.YourCollectible.tokenOfOwnerByIndex(address, tokenIndex);
-          if (DEBUG) console.log("Getting Loogie tokenId: ", tokenId);
-          const tokenURI = await readContracts.YourCollectible.tokenURI(tokenId);
-          if (DEBUG) console.log("tokenURI: ", tokenURI);
-          const jsonManifestString = atob(tokenURI.substring(29));
-
-          try {
-            const jsonManifest = JSON.parse(jsonManifestString);
-            collectibleUpdate.push({ id: tokenId, uri: tokenURI, owner: address, ...jsonManifest });
-          } catch (e) {
-            console.log(e);
-          }
-        } catch (e) {
-          console.log(e);
-        }
-      }
-      setYourCollectibles(collectibleUpdate.reverse());
-    };
-    updateYourCollectibles();
-  }, [address, yourBalance]);
 
   //
   // 🧫 DEBUG 👨🏻‍🔬
@@ -275,11 +260,11 @@ function App(props) {
         <Menu.Item key="/">
           <Link to="/">Home</Link>
         </Menu.Item>
-        <Menu.Item key="/yourLoogies">
-          <Link to="/yourLoogies">Car Certification onChain</Link>
+        <Menu.Item key="/yourMadLibs" >
+          <Link to="/yourMadLibs">Your MadLibs Game onChain</Link>
         </Menu.Item>
         <Menu.Item key="/howto">
-          <Link to="/howto">How To Use Car Certification onChain Network</Link>
+          <Link to="/howto">How To Use MadLibs Game onChain Network</Link>
         </Menu.Item>
         <Menu.Item key="/debug">
           <Link to="/debug">Debug Contracts</Link>
@@ -293,19 +278,55 @@ function App(props) {
 
         <Button
           type="primary"
-          onClick={async () => {
-            const priceRightNow = await readContracts.YourCollectible.price();
-            try {
-              const txCur = await tx(writeContracts.YourCollectible.mintItem({ value: priceRightNow, gasLimit: 300000 }));
-              await txCur.wait();
-            } catch (e) {
-              console.log("mint failed", e);
-            }
-          }}
+          onClick={
+            togglePopup}
+          //   async () => {
+          //   const priceRightNow = await readContracts.YourCollectible.price();
+          //   try {
+          //     const txCur = await tx(writeContracts.YourCollectible.mintItem({ value: priceRightNow, gasLimit: 300000 }));
+          //     await txCur.wait();
+          //   } catch (e) {
+          //     console.log("mint failed", e);
+          //   }
+          // }}
         >
           MINT for Ξ{priceToMint && (+ethers.utils.formatEther(priceToMint)).toFixed(4)}
         </Button>
+        {isOpen && <Popup
+         content={<>
+          <form>
+            <h3 style={{ color: currentTheme==="light" ? '#222222':'white'}}>Insert your text!</h3>
+            <h4 style={{ color: currentTheme==="light" ? '#222222':'white'}}>Use # to indicate the Mad Lib! 
+            <br />
+             Example: Hello #, how are you?</h4> 
+            <br />
+            <label style={{ color: currentTheme==="light" ? '#222222':'white'}}>
+              Text: <span></span>
+              <textarea style={{resize: 'none', background: currentTheme==="light" ? 'white':'#212121'}} rows="4" cols="50" value={inputText} onInput={e => setInputText(e.target.value)} />
+              <br />
+              
+            </label>
+            <br />
+            <Button
+                type="primary"
+                onClick={
+                async () => {
+                const priceRightNow = await readContracts[contractName].price();
+                const nBlanks =  (inputText.match(/#/g)||[]).length;
+                console.log("text: ", inputText);
+                console.log("nBlanks: ", nBlanks);
+                togglePopup();
+                let txCur = await tx(writeContracts[contractName].mintItem(inputText, nBlanks,{value: priceRightNow}));
+                // window.location.reload();
+              }}
+           >Mint
+          </Button>            <br />
+          </form>
+          <br />
 
+        </>}
+          handleClose={togglePopup}
+        />}
         <p style={{ fontWeight: "bold" }}>
           { loogiesLeft } left
         </p>
@@ -313,57 +334,56 @@ function App(props) {
 
       <Switch>
         <Route exact path="/">
-          <Loogies
+          <MadLibs
             readContracts={readContracts}
+            writeContracts={writeContracts}
+            tx={tx}
+            contractName={contractName}
             mainnetProvider={mainnetProvider}
             blockExplorer={blockExplorer}
             totalSupply={totalSupply}
             DEBUG={DEBUG}
+            address={address}
           />
         </Route>
-        <Route exact path="/yourLoogies">
-          <YourLoogies
+        <Route exact path="/yourMadLibs">
+          <YourMadLibs
             readContracts={readContracts}
             writeContracts={writeContracts}
             priceToMint={priceToMint}
-            yourCollectibles={yourCollectibles}
             tx={tx}
+            contractName={contractName}
             mainnetProvider={mainnetProvider}
             blockExplorer={blockExplorer}
             transferToAddresses={transferToAddresses}
             setTransferToAddresses={setTransferToAddresses}
             address={address}
+            totalSupply={totalSupply}
           />
         </Route>
         <Route exact path="/howto">
-          <div style={{ fontSize: 18, width: 820, margin: "auto" }}>
-            <h2 style={{ fontSize: "2em", fontWeight: "bold" }}>How to add Heterochromic  Ethereum network on MetaMask</h2>
-            <div style={{ textAlign: "left", marginLeft: 50, marginBottom: 50 }}>
-              <ul>
-                <li>
-                  Go to <a target="_blank" href="https://chainid.link/?network=optimism">https://chainid.link/?network=optimism</a>
-                </li>
-                <li>
-                  Click on <strong>connect</strong> to add the <strong>Heterochromic  Ethereum</strong> network in <strong>MetaMask</strong>.
-                </li>
-              </ul>
-            </div>
-            <h2 style={{ fontSize: "2em", fontWeight: "bold" }}>How to add funds to your wallet on Heterochromic  Ethereum network</h2>
-            <div style={{ textAlign: "left", marginLeft: 50, marginBottom: 100 }}>
-              <ul>
-                <li><a href="https://portr.xyz/" target="_blank">The Teleporter</a>: the cheaper option, but with a 0.05 ether limit per transfer.</li>
-                <li><a href="https://gateway.optimism.io/" target="_blank">The Optimism Gateway</a>: larger transfers and cost more.</li>
-                <li><a href="https://app.hop.exchange/send?token=ETH&sourceNetwork=ethereum&destNetwork=optimism" target="_blank">Hop.Exchange</a>: where you can send from/to Ethereum mainnet and other L2 networks.</li>
-              </ul>
-            </div>
-          </div>
+        
+        <div style={{ fontSize: 15, width: 820, margin: "auto" }}>
+          <h2 style={{ fontSize: "2em", fontWeight: "bold" }}>How to add Mint a NFT on MadLibs Game on Chain</h2>
+          <img src={mintpng} alt="How To Mint" width="500" height="500"></img>
+        </div>
+        <div>&nbsp;</div>
+        <div style={{ fontSize: 15, width: 820, margin: "auto" }}>
+          <h2 style={{ fontSize: "2em", fontWeight: "bold" }}>How to use HomePage in MadLibs Game on Chain</h2>
+          <img src={homepng} alt="How To Home" width="500" height="400"></img>
+        </div>
+        <div>&nbsp;</div>
+        <div style={{ fontSize: 15, width: 820, margin: "auto" }}>
+          <h2 style={{ fontSize: "2em", fontWeight: "bold" }}>How to vote a proposal on MadLibs Game on Chain</h2>
+          <img src={proposalpng} alt="How To proposal" width="500" height="500"></img>
+        </div>          
         </Route>
         <Route exact path="/debug">
           <div style={{ padding: 32 }}>
-            <Address value={readContracts && readContracts.YourCollectible && readContracts.YourCollectible.address} />
+            <Address value={readContracts && readContracts[contractName] && readContracts[contractName].address} />
           </div>
           <Contract
-            name="YourCollectible"
+            name={contractName}
             price={price}
             signer={userSigner}
             provider={localProvider}

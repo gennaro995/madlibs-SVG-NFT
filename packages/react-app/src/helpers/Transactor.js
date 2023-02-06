@@ -80,7 +80,7 @@ export default function Transactor(providerOrSigner, gasPrice, etherscan) {
         }
 
         // if it is a valid Notify.js network, use that, if not, just send a default notification
-        if (notify && [1, 3, 4, 5, 10, 42, 69, 100].indexOf(network.chainId) >= 0) {
+        if (notify && [1, 3, 4, 5, 10, 42, 69, 100].indexOf(network.chainId) >= 0 && result.hash) {
           const { emitter } = notify.hash(result.hash);
           emitter.on("all", transaction => {
             return {
@@ -88,11 +88,13 @@ export default function Transactor(providerOrSigner, gasPrice, etherscan) {
             };
           });
         } else {
-          notification.info({
-            message: "Local Transaction Sent",
-            description: result.hash,
-            placement: "bottomRight",
-          });
+          if(result.hash){
+            notification.info({
+              message: "Local Transaction Sent",
+              description: result.hash,
+              placement: "bottomRight",
+            });
+          }
           // on most networks BlockNative will update a transaction handler,
           // but locally we will set an interval to listen...
           if (callback) {
@@ -140,10 +142,17 @@ export default function Transactor(providerOrSigner, gasPrice, etherscan) {
         } catch (e) {
           //ignore
         }
+        let jsonMessage;
+        try{
+          jsonMessage = JSON.parse(message);
 
+        }catch(e){
+          jsonMessage = message;
+        }
+        console.log("jsonMessage", jsonMessage);
         notification.error({
           message: "Transaction Error",
-          description: message,
+          description: network === 'localhost' ? jsonMessage.error.reason:jsonMessage.reason,
         });
         if (callback && typeof callback === "function") {
           callback(e);
