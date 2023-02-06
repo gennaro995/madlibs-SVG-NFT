@@ -10,7 +10,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const chainId = await getChainId();
 
 
-  const lib = await deploy("MadLibsUtility", { //0x5FbDB2315678afecb367f032d93F642f64180aa3
+  const lib = await deploy("MadLibsUtility", { //0x762C0F40849f03815997C79BbB17C6d96593fdE3
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     // args: [ "Hello", ethers.utils.parseEther("1.5") ],
