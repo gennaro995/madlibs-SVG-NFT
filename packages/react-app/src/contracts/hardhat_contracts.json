@@ -817,8 +817,114 @@
       "name": "localhost",
       "chainId": "31337",
       "contracts": {
-        "YourCollectible": {
-          "address": "0x2B0d36FACD61B71CC05ab8F3D2355ec3631C0dd5",
+        "MadLibsUtility": {
+          "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "abi": [
+            {
+              "inputs": [
+                {
+                  "internalType": "string[]",
+                  "name": "array",
+                  "type": "string[]"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "limit",
+                  "type": "uint256"
+                }
+              ],
+              "name": "checkLenArray",
+              "outputs": [
+                {
+                  "internalType": "bool",
+                  "name": "",
+                  "type": "bool"
+                }
+              ],
+              "stateMutability": "pure",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "text",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "nBlanks",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "string[]",
+                  "name": "replacements",
+                  "type": "string[]"
+                }
+              ],
+              "name": "replacePlaceholders",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "pure",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string",
+                  "name": "s",
+                  "type": "string"
+                }
+              ],
+              "name": "strlen",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "stateMutability": "pure",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "_id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "address",
+                  "name": "owner",
+                  "type": "address"
+                },
+                {
+                  "internalType": "string",
+                  "name": "text",
+                  "type": "string"
+                }
+              ],
+              "name": "tokenURI",
+              "outputs": [
+                {
+                  "internalType": "string",
+                  "name": "",
+                  "type": "string"
+                }
+              ],
+              "stateMutability": "pure",
+              "type": "function"
+            }
+          ]
+        },
+        "MadLibs": {
+          "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
           "abi": [
             {
               "inputs": [],
@@ -881,25 +987,6 @@
                 {
                   "indexed": true,
                   "internalType": "address",
-                  "name": "sender",
-                  "type": "address"
-                },
-                {
-                  "indexed": false,
-                  "internalType": "string",
-                  "name": "message",
-                  "type": "string"
-                }
-              ],
-              "name": "CarServiceDone",
-              "type": "event"
-            },
-            {
-              "anonymous": false,
-              "inputs": [
-                {
-                  "indexed": true,
-                  "internalType": "address",
                   "name": "previousOwner",
                   "type": "address"
                 },
@@ -937,6 +1024,66 @@
               ],
               "name": "Transfer",
               "type": "event"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "",
+                  "type": "uint256"
+                }
+              ],
+              "name": "_madlibs",
+              "outputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "string",
+                  "name": "text",
+                  "type": "string"
+                },
+                {
+                  "internalType": "uint8",
+                  "name": "nBlanks",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "closed",
+                  "type": "bool"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [],
+              "name": "_maxVotes",
+              "outputs": [
+                {
+                  "internalType": "uint8",
+                  "name": "",
+                  "type": "uint8"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "string[]",
+                  "name": "_words",
+                  "type": "string[]"
+                }
+              ],
+              "name": "addProposal",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
             },
             {
               "inputs": [
@@ -979,95 +1126,13 @@
               "inputs": [
                 {
                   "internalType": "uint256",
-                  "name": "",
+                  "name": "_id",
                   "type": "uint256"
                 }
               ],
-              "name": "car_services_done",
-              "outputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "name": "chassis_number",
-              "outputs": [
-                {
-                  "internalType": "string",
-                  "name": "",
-                  "type": "string"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "_tokenId",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "string",
-                  "name": "_license_plate",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "_chassis",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "_manufacturer",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "_model",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "_year",
-                  "type": "string"
-                }
-              ],
-              "name": "fillCCC",
+              "name": "closeMadLib",
               "outputs": [],
               "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "name": "filled",
-              "outputs": [
-                {
-                  "internalType": "bool",
-                  "name": "",
-                  "type": "bool"
-                }
-              ],
-              "stateMutability": "view",
               "type": "function"
             },
             {
@@ -1084,6 +1149,102 @@
                   "internalType": "address",
                   "name": "",
                   "type": "address"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "_id",
+                  "type": "uint256"
+                }
+              ],
+              "name": "getBestProposal",
+              "outputs": [
+                {
+                  "internalType": "string[]",
+                  "name": "",
+                  "type": "string[]"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "_id",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "_idProposal",
+                  "type": "uint256"
+                }
+              ],
+              "name": "getProposal",
+              "outputs": [
+                {
+                  "components": [
+                    {
+                      "internalType": "string[]",
+                      "name": "words",
+                      "type": "string[]"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "countVotes",
+                      "type": "uint256"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "proposer",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct MadLibs.Proposal",
+                  "name": "",
+                  "type": "tuple"
+                }
+              ],
+              "stateMutability": "view",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "_id",
+                  "type": "uint256"
+                }
+              ],
+              "name": "getProposals",
+              "outputs": [
+                {
+                  "components": [
+                    {
+                      "internalType": "string[]",
+                      "name": "words",
+                      "type": "string[]"
+                    },
+                    {
+                      "internalType": "uint256",
+                      "name": "countVotes",
+                      "type": "uint256"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "proposer",
+                      "type": "address"
+                    }
+                  ],
+                  "internalType": "struct MadLibs.Proposal[]",
+                  "name": "",
+                  "type": "tuple[]"
                 }
               ],
               "stateMutability": "view",
@@ -1116,109 +1277,16 @@
             {
               "inputs": [
                 {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "name": "km",
-              "outputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
+                  "internalType": "string",
+                  "name": "_text",
+                  "type": "string"
                 },
                 {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
+                  "internalType": "uint8",
+                  "name": "_nBlanks",
+                  "type": "uint8"
                 }
               ],
-              "name": "km4service",
-              "outputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "name": "license_plate",
-              "outputs": [
-                {
-                  "internalType": "string",
-                  "name": "",
-                  "type": "string"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "_updated_km",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "_tokenId",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "string",
-                  "name": "_message4services",
-                  "type": "string"
-                }
-              ],
-              "name": "makeCarService",
-              "outputs": [],
-              "stateMutability": "nonpayable",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "name": "manufacturer",
-              "outputs": [
-                {
-                  "internalType": "string",
-                  "name": "",
-                  "type": "string"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [],
               "name": "mintItem",
               "outputs": [
                 {
@@ -1231,51 +1299,8 @@
               "type": "function"
             },
             {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "name": "model",
-              "outputs": [
-                {
-                  "internalType": "string",
-                  "name": "",
-                  "type": "string"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
               "inputs": [],
               "name": "name",
-              "outputs": [
-                {
-                  "internalType": "string",
-                  "name": "",
-                  "type": "string"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                },
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "name": "note4service",
               "outputs": [
                 {
                   "internalType": "string",
@@ -1319,25 +1344,6 @@
               "type": "function"
             },
             {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "name": "past_owners",
-              "outputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
               "inputs": [],
               "name": "price",
               "outputs": [
@@ -1351,25 +1357,6 @@
               "type": "function"
             },
             {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "",
-                  "type": "uint256"
-                }
-              ],
-              "name": "production_year",
-              "outputs": [
-                {
-                  "internalType": "string",
-                  "name": "",
-                  "type": "string"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
               "inputs": [],
               "name": "recipient",
               "outputs": [
@@ -1377,25 +1364,6 @@
                   "internalType": "address payable",
                   "name": "",
                   "type": "address"
-                }
-              ],
-              "stateMutability": "view",
-              "type": "function"
-            },
-            {
-              "inputs": [
-                {
-                  "internalType": "uint256",
-                  "name": "_id",
-                  "type": "uint256"
-                }
-              ],
-              "name": "renderTokenById",
-              "outputs": [
-                {
-                  "internalType": "string",
-                  "name": "",
-                  "type": "string"
                 }
               ],
               "stateMutability": "view",
@@ -1556,7 +1524,7 @@
               "inputs": [
                 {
                   "internalType": "uint256",
-                  "name": "id",
+                  "name": "_id",
                   "type": "uint256"
                 }
               ],
@@ -1616,6 +1584,19 @@
                 }
               ],
               "name": "transferOwnership",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            },
+            {
+              "inputs": [
+                {
+                  "internalType": "uint256",
+                  "name": "_idProposal",
+                  "type": "uint256"
+                }
+              ],
+              "name": "voteProposal",
               "outputs": [],
               "stateMutability": "nonpayable",
               "type": "function"

@@ -26,7 +26,7 @@ const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 //
 // Select the network you want to deploy to here:
 //
-const defaultNetwork = "goerli";
+const defaultNetwork = "localhost";
 
 const mainnetGwei = 21;
 
@@ -67,8 +67,6 @@ module.exports = {
     localhost: {
       url: "http://localhost:8545",
       allowUnlimitedContractSize: true,
-      blockGasLimit: 0x1fffffffffffff,
-      timeout: 1800000,
       /*      
         notice no mnemonic here? it will just use account 0 of the hardhat node to deploy
         (you can put in a mnemonic here to set the deployer locally)
@@ -140,8 +138,7 @@ module.exports = {
       },
     },
     goerli: {
-      url: "https://goerli.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", // <---- YOUR INFURA ID! (or it won't work)
-
+      url: "https://eth-goerli.g.alchemy.com/v2/19elM3YBAecg-Lg4AlL6rb1nU7uwRuqh", // <---- YOUR INFURA ID! (or it won't work)
       //      url: "https://speedy-nodes-nyc.moralis.io/XXXXXXXXXXXXXXXXXXXXXXXXX/eth/goerli", // <---- YOUR MORALIS ID! (not limited to infura)
 
       accounts: {
