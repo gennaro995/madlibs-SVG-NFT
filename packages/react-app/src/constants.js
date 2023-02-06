@@ -1,6 +1,16 @@
 require("dotenv").config();
 
 
+export const INFURA_ID = process.env.INFURA_ID;
+
+// MY ETHERSCAN_ID, SWAP IN YOURS FROM https://etherscan.io/myapikey
+export const ETHERSCAN_KEY = process.env.ETHERSCAN_KEY;
+
+// BLOCKNATIVE ID FOR Notify.js:
+export const BLOCKNATIVE_DAPPID = process.env.BLOCKNATIVE_DAPPID;
+
+export const ALCHEMY_KEY = process.env.ALCHEMY_KEY;
+
 
 export const NETWORKS = {
   localhost: {
