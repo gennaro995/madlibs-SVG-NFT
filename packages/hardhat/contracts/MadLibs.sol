@@ -10,23 +10,10 @@ import "hardhat/console.sol";
 contract MadLibs is ERC721Enumerable, Ownable {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
-  uint8 public _maxVotes = 99;
-  uint8 public _maxProposal = 1;
+  uint8 public maxVotes = 99;
   MadLib[] public _madlibs;
-   // all funds go to buidlguidl.eth
-   //prova branch dev2
-  address payable public constant recipient = payable(0xa81a6a910FeD20374361B35C451a4a44F86CeD46);
   uint256 public price = 0.001 ether;
-  /**
-  * @dev
-  * Note: 
-  *   - words -> parole della proposta
-  * Requirements:
-  *   -
-  *   -
-  * Returns:
-  *   -
-  */
+ 
   struct Proposal{
     string[] words;
     uint256 countVotes;
@@ -36,13 +23,14 @@ contract MadLibs is ERC721Enumerable, Ownable {
   /**
   * @dev MadLibs -> NFT
   * Note: 
-  *   - L'ho messo come esempio di come si dovrebbe commentare il codice in solidity
   *   -
-  * Requirements:
-  *   -
-  *   -
-  * Returns:
-  *   -
+  *   - id
+  *   - text of Mad Lib
+  *   - number of blanks to fill
+  *   - proposals of the users
+  *   - map to record the proposer
+  *   - map to record how many votes of an address for the mad lib
+  *   - flag closed
   */
   struct MadLib{ 
     uint256 id;
@@ -119,7 +107,7 @@ contract MadLibs is ERC721Enumerable, Ownable {
   function voteProposal(uint _idProposal) public{
     uint256 id = _tokenIds.current();
     require (_madlibs[id].closed == false, "Proposal must be for open/current MadLib!");
-    require (_madlibs[id].addrVotes[msg.sender] < _maxVotes , "You have already used all yours aviable votes for this MadLib!");
+    require (_madlibs[id].addrVotes[msg.sender] < maxVotes , "You have already used all yours aviable votes for this MadLib!");
     _madlibs[id].addrVotes[msg.sender]++;
     _madlibs[id].proposals[_idProposal].countVotes++;
   }
@@ -129,6 +117,15 @@ contract MadLibs is ERC721Enumerable, Ownable {
     return MadLibsUtility.tokenURI(_id,  ownerOf(_id), _madlibs[_id].text);
   }
 
+  function setMaxVotes(uint8 _maxVotes) public onlyOwner {
+    maxVotes = _maxVotes;
+  }
 
-
+  function withdraw() external onlyOwner {
+    (bool success, ) = payable(owner()).call{value: address(this).balance}("");
+    require(success);
+  }
+  receive() external payable {
+        // React to receiving ether
+    }
 }
