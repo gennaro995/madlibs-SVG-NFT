@@ -1,2 +1,2 @@
-# 🚗 cars-certificate-NFT
-A simple implementation on how NFT can be used for storing and securing cars documentation.
+# 😎 MadLibs Game on chain
+A simple implementation on how Madlibs can work on blockchain.
