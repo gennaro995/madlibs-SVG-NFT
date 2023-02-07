@@ -18,9 +18,9 @@ function MadLibs({ readContracts,writeContracts,tx,contractName, mainnetProvider
   const [insertProp, setInsertProp] = useState(true); // '' is the initial state value
   const [currentItem, setCurrentItem] = useState();
   const [toUpdate, setToUpdate] = useState(false);
+  const [bestProposal, setBestProposal] = useState([]);
 
   const { currentTheme } = useThemeSwitcher();
-
 
   const toggleProposal = () => {
     setOpen(!open);
@@ -71,9 +71,17 @@ function MadLibs({ readContracts,writeContracts,tx,contractName, mainnetProvider
   // }
   function replaceHashtag(array,item) {
     let text = item.text;
-    for (let index = 0; index < array.length; index++) {
-      text = text.replace('#',array[index])
+    if (currentItem.closed && bestProposal ){
+      console.log("bestProposal, ", bestProposal);
+      for (let index = 0; index < array.length; index++) {
+        text = text.replace(bestProposal[index],array[index])
+      }
+    }else{
+      for (let index = 0; index < array.length; index++) {
+        text = text.replace('#',array[index])
+      }
     }
+
     return text;
   }
   // function attachButton(item){
@@ -298,7 +306,10 @@ function MadLibs({ readContracts,writeContracts,tx,contractName, mainnetProvider
                                           setCurrentItem(item);        
                                           setToUpdate(false);
 
-                                          await toggleProposal(); 
+                                          await toggleProposal();
+                                          if (item.proposals.length>0) {
+                                            setBestProposal(await tx(readContracts[contractName].getBestProposal(item.id)));
+                                          }
                                       }
                                   }>
                                 SHOW PROPOSALS
